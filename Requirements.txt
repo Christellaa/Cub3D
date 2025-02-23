@@ -1,0 +1,25 @@
+//Le programme doit avoir une couleur pour le plafond, une pour le sol (RGB).
+//Le programme affiche l'image dans la fenetre selon les regles suivantes:
+//	Les touches fleches gauche et droite du clavier doivent permettre de tourner la camera.
+//	WASD pour le deplacement du perso.
+//	ESC quitte le programme et ferme la fenetre. Cliquer sur la croix rouge aussi.
+//	(Il est recommende d'utiliser des images de la minilibX)
+//Le programme doit prendre en premier argument un fichier de description de scene suffixe par .cub
+//La map doit etre composee d'uniquement 6 caracteres:
+//	0 = espace vide
+//	1 = mur
+//	N = Nord (Orientation de depart du joueur/ position de depart du joueur)
+//	S = Sud (Orientation de depart du joueur/ position de depart du joueur) 
+//	E = Est (Orientation de depart du joueur/ position de depart du joueur)
+//	W = Ouest (Orientation de depart du joueur/ position de depart du joueur)
+//La map doit etre fermee/entouree de murs, sinon le programme renvoie une erreur.
+//Mis a part le schema de la map, chaque type d'element peut etre separe par une ou plusieurs lignes vides.
+//IMPORTANT: La description de la carte doit etre en dernier mais les autres elements dans n'importe quel ordre.
+//Pour chaque element, le premier caractere est l'identifiant (un ou deux caracteres) suivi de toutes informations specifiques a l'element dans un ordre strict, tel que:
+//	texture nord = NO ./path_to_north_texture
+//	texture sud = SO ./path_to_south_texture
+//	texture est = EA ./path_to_east_texture
+//	texture ouest = WE ./path_to_east_texture
+//	Couleur du sol = F [0,255],[0,255],[0,255] (Couleur rgb) (Pas d'espace entre les RGB)
+//	Couleur du plafond = C [0,255],[0,255],[0,255] (Couleur rgb) (Pas d'espace entre les RGB)
+//Si un probleme de configuration de n'importe quel type est rencontre dans le fichier, le programme quitte et doit renvoyer "Error\n" suivi d'un message d'erreur explicite de votre choix.
