@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:38:48 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 04:27:49 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/23 05:13:22 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_parse(char **argv, t_data *data)
 	if (open_fd == ERROR)
 		return (ERROR);
 	if (ft_parse_check_file_rules(open_fd, data) == ERROR)
-		return (close(open_fd), ERROR);
+		return (ERROR);
 	// if (ft_parse_check_map_rules(open_fd, data) == ERROR)
 	// 	return(close(open_fd), ERROR);
 	return (close(open_fd), 0);
@@ -100,9 +100,31 @@ int ft_parse_check_file_rules(int open_fd, t_data *data)
 	return (0);
 }
 
-// int	ft_parse_check_map_rules(int open_fd, t_data *data)
-// {
-// 	//1) Check every line for valid characters only [1-0-N-S-W-E-' ']
-// 	//2) Do a flood fill to ensure the map is closed.
-// 	return (0);
-// }
+// This function verifies that the map in <open_fd> obeys the map rules:
+// Characters within are only: [1, 0, N, S, E, W, ' ']
+// The map is closed and there are no whitespaces within the map visible by the player.
+// The data from the map in <open_fd> can be assigned to <data> afterwards
+int	ft_parse_check_map_rules(int open_fd, t_data *data)
+{
+	ft_printf(LOGS, "[PARSE]: Verifying Map Rules.\n");
+	ft_printf(LOGSV, "[VERBOSE][PARSE]: Verifying lines have valid chars\n");
+	if (ft_parse3_check_lines(open_fd) == ERROR)
+	{
+		close(open_fd);
+		return (ERROR);
+	}
+	else if (ft_parse3_flood_fill(open_fd) == ERROR)
+	{
+		close(open_fd);
+		ft_printf(2, "Error\nMap isn't closed/Found space inside\n");
+		return (ERROR);
+	}
+	if (ft_parse3_assign_map_to_data(open_fd, data) == ERROR)
+	{
+		close(open_fd);
+		ft_printf(2, "Error\nCouldn't retrieve player/map data");
+		return (ERROR);
+	}
+	close(open_fd);
+	return (0);
+}

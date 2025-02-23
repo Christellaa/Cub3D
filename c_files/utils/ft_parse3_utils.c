@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 03:52:26 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 04:26:24 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/23 05:10:13 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,14 @@ int	ft_parse3_util_check_valid_char(char c, bool *p1_flag, bool *multiple_flag)
 	else if (c == '1' || c == '0' || c == ' ')
 		return (0);
 	return (ERROR);
+}
+
+char	*ft_parse3_util_get_next_map_line(char *line, int open_fd)
+{
+	if (line)
+		free(line);
+	line = get_next_line(open_fd, 0);
+	if (line)
+	line[ft_strlen(line) - 1] = '\0';
+	return (line);
 }

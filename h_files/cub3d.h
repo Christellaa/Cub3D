@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 04:27:24 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/23 05:10:18 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ bool	ft_parse1_util_rgb_atoi(char *nptr, int *int_addr);
 
 //		ft_parse3_utils.c
 int		ft_parse3_util_check_valid_char(char c, bool *p1_flag, bool *multiple_flag);
+char	*ft_parse3_util_get_next_map_line(char *line, int open_fd);
 
 // FREE
 
