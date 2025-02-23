@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 03:50:38 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 05:12:35 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/23 17:40:51 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ int	ft_parse3_check_lines(int open_fd)
 {
 	char	*line;
 	int		index;
-	int		flag[2];
+	bool	flag[2];
 
 	index = 0;
 	flag[0] = false;
 	flag[1] = false;
+	line = NULL;
 	line = ft_parse3_util_get_next_map_line(line, open_fd);
 	while (line[index])
 	{

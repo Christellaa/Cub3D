@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 00:09:00 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 03:54:07 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/23 17:58:23 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,10 @@ void	ft_clean_exit(t_data *data)
 		free(data->west_txt);
 	if (data->south_txt)
 		free(data->south_txt);
+	if (data->player)
+		free(data->player);
+	if (data->ceiling_rgb)
+		free(data->ceiling_rgb);
+	if (data->floor_rgb)
+		free(data->floor_rgb);
 }

@@ -1,15 +1,6 @@
 NO           textures/texture.xpm
-
-
-
-              
-
-
-SO textures/southern_texture.xpm
-
-
 EAtextures/eastern_texture.xpm
-
 WE textures/western_texture.xpm
+SO textures/southern_texture.xpm
 F 0,0,0
-C 0,0,0
+C0,0,0

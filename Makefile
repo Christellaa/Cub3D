@@ -18,7 +18,7 @@ NAME_BONUS:= cube4D
 # CC and CFLAGS:
 
 CC:= cc
-CFLAGS:= -Wall -Werror -Wextra
+CFLAGS:= -Wall -Werror -Wextra -g3
 
 # Directories:
 

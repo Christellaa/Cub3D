@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:24:26 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 03:54:49 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/23 17:53:06 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	main(int argc, char **argv)
 		ft_printf(2, "Error\nWrong args number.\nUsage: cub3d [map_file.cub]\n");
 		return (ERROR);
 	}
-	ft_init_data(&data);
+	if (ft_init_data(&data) == ERROR)
+		return (ERROR);
 	if (ft_parse(argv, &data) == ERROR)
 		return (ERROR);
 	ft_printf(2, "No errors found!\n");
