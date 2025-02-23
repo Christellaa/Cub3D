@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 00:48:56 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/23 03:35:04 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
 
 // ------------DEFINE---------------
 
@@ -29,7 +31,7 @@
 // Set LOGS to 2 for simple LOGS, LOGSV to 2 for verbose (With more details).
 // Set LOGS and LOGSV to -1 to hide logs
 # define LOGS 2
-# define LOGSV 2
+# define LOGSV -1
 
 # define ERROR -1
 
@@ -56,27 +58,34 @@ typedef struct s_data
 	char	*south_txt;
 	char	*east_txt;
 	char	*west_txt;
-	t_rgb	floor_rgb;
-	t_rgb	ceiling_rgb;
+	t_rgb	*floor_rgb;
+	t_rgb	*ceiling_rgb;
 }t_data;
 
 // ------------DECLARE--------------
 
+// INITIALIZING
+
+// 		ft_init.c
+void	ft_init_data(t_data *data);
+void	ft_init_rgbs(t_rgb *ceiling, t_rgb *floor);
+
 // PARSING
 
-// ft_parse.c
-int 	ft_parse(int argc, char **argv, t_data *data);
-int 	ft_parse_check_file_path(int argc, char **argv);
+// 		ft_parse.c
+int 	ft_parse(char **argv, t_data *data);
+int 	ft_parse_check_file_path(char **argv);
 int		ft_parse_check_file_rules(int open_fd, t_data *data);
 
-// ft_parse1.c
+// 		ft_parse1.c
 int		ft_parse1_search_cardinals(char *line);
 int		ft_parse1_check_line(char *line, int return_num, t_data *data);
 int		ft_parse1_xpm_check(char *line, int num, t_data *data);
 int		ft_parse1_rgb_check(char *line, int num, t_data *data);
 
-// ft_parse2.c
-int		ft_parse2_assign_texture_to_data(char *path, t_data *data);
+// 		ft_parse2.c
+int		ft_parse2_assign_texture_to_data(char *path, int num, t_data *data);
+int		ft_parse2_assign_RGB_to_data(t_data *data, int *rgb_values, int num);
 
 // EXEC
 
@@ -95,6 +104,7 @@ bool	ft_parse1_util_rgb_atoi(char *nptr, int *int_addr);
 
 // FREE
 void	ft_free_tab(char **split);
+void	ft_clean_exit(t_data *data);
 
 // MAIN
 #endif

@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:00:11 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 01:30:01 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/23 03:25:46 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ int	ft_parse1_search_cardinals(char *line)
 //If it is, then it is assigned to the data struct.
 int	ft_parse1_check_line(char *line, int num, t_data *data)
 {
-	int	rgb_values[3];
-	
 	ft_printf(LOGS, "[PARSE1]: Verifying line\n");
 	if (num >= NORTH && num <= WEST)
 	{
@@ -91,7 +89,7 @@ int	ft_parse1_xpm_check(char *line, int num, t_data *data)
 		return (close(texture_fd), ERROR);
 	}
 	close(texture_fd);
-	return (/*ft_parse2_assign_texture_to_data(&line[new_index], data)*/ 0);
+	return (ft_parse2_assign_texture_to_data(&line[new_index], num, data));
 }
 
 int	ft_parse1_rgb_check(char *line, int num, t_data *data)
@@ -113,5 +111,5 @@ int	ft_parse1_rgb_check(char *line, int num, t_data *data)
 		ft_printf(2, "Error\nInvalid RGB format given to Floor/Ceiling");
 		return (ERROR);
 	}
-	return (/*ft_parse2_assign_RGB_to_data(&line[new_index], rgb_values)*/ 0);
+	return (ft_parse2_assign_RGB_to_data(data, rgb_values, num));
 }

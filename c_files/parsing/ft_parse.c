@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:38:48 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 01:14:42 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/23 03:25:21 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 // This function checks that the argument given is valid for the execution of cub3d.
 // It may be cut into multiple different functions later for norm purposes.
-int	ft_parse(int argc, char **argv, t_data *data)
+int	ft_parse(char **argv, t_data *data)
 {
 	int	open_fd;
 
 	ft_printf(LOGS, "[PARSE]: Parsing the argument given\n");
-	open_fd = ft_parse_check_file_path(argc, argv);
+	open_fd = ft_parse_check_file_path(argv);
 	if (open_fd == ERROR)
 		return (ERROR);
 	if (ft_parse_check_file_rules(open_fd, data) == ERROR)
@@ -32,7 +32,7 @@ int	ft_parse(int argc, char **argv, t_data *data)
 // Verifies single argument with valid path and correct access rights.
 // Returns file descriptor of the file on success, -1 on error (With printed message.)
 // Function tested. Written to norm (without LOGSV).
-int	ft_parse_check_file_path(int argc, char **argv)
+int	ft_parse_check_file_path(char **argv)
 {
 	int	index;
 	int	open_fd;

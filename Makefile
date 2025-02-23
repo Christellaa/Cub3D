@@ -6,7 +6,7 @@
 #    By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/20 23:13:34 by ilevy             #+#    #+#              #
-#    Updated: 2025/02/22 00:12:31 by ilevy            ###   ########.fr        #
+#    Updated: 2025/02/23 03:26:42 by ilevy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,13 +32,13 @@ O_DIR_SUBS:= $(addprefix $(O_DIR), $(SUBS))
 # Sub-Directory and files:
 
 PARSING_DIR:= parsing/
-PARSING:= ft_parse.c ft_parse1.c
+PARSING:= ft_parse.c ft_parse1.c ft_parse2.c
 
 INIT_DIR:= init/
 INIT:= ft_init.c
 
 UTILS_DIR:= utils/
-UTILS:= ft_parse_utils.c
+UTILS:= ft_parse1_utils.c ft_parse1_utils_2.c
 
 FREE_DIR:= free/
 FREE:= ft_free.c

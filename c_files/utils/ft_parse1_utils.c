@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 01:15:57 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 01:03:33 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/23 03:27:03 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,14 @@ int	ft_parse1_util_find_duplicate_rgb(int num, t_data *data)
 	if (num == FLOOR)
 	{
 		ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]: Checking for duplicate floor\n");
-		if (data->floor_rgb.assigned == true)
+		if (data->floor_rgb->assigned == true)
 			return (ERROR);
 		ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]: No duplicate floor found\n");
 	}
 	else if (num == CEILING)
 	{
 		ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]: Checking for duplicate ceiling\n");
-		if (data->ceiling_rgb.assigned == true)
+		if (data->ceiling_rgb->assigned == true)
 			return (ERROR);
 		ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]: No duplicate ceiling found\n");
 	}
