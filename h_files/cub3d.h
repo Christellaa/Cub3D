@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 03:35:04 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/23 04:27:24 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,33 @@
 typedef struct s_rgb
 {
 	bool			assigned;
-	unsigned char	R;
-	unsigned char	G;
-	unsigned char	B;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
 }t_rgb;
+
+typedef struct s_pos
+{
+	int	x;
+	int	y;
+}t_pos;
+
+typedef struct s_player
+{
+	t_pos	pos;
+}t_player;
 
 typedef struct s_data
 {
-	char	*north_txt;
-	char	*south_txt;
-	char	*east_txt;
-	char	*west_txt;
-	t_rgb	*floor_rgb;
-	t_rgb	*ceiling_rgb;
+	char		*north_txt;
+	char		*south_txt;
+	char		*east_txt;
+	char		*west_txt;
+
+	t_rgb		*floor_rgb;
+	t_rgb		*ceiling_rgb;
+
+	t_player	*player;
 }t_data;
 
 // ------------DECLARE--------------
@@ -69,13 +83,15 @@ typedef struct s_data
 // 		ft_init.c
 void	ft_init_data(t_data *data);
 void	ft_init_rgbs(t_rgb *ceiling, t_rgb *floor);
+void	ft_init_player(t_player *player);
 
 // PARSING
 
 // 		ft_parse.c
-int 	ft_parse(char **argv, t_data *data);
-int 	ft_parse_check_file_path(char **argv);
+int		ft_parse(char **argv, t_data *data);
+int		ft_parse_check_file_path(char **argv);
 int		ft_parse_check_file_rules(int open_fd, t_data *data);
+int		ft_parse_check_map_rules(int open_fd, t_data *data);
 
 // 		ft_parse1.c
 int		ft_parse1_search_cardinals(char *line);
@@ -87,22 +103,30 @@ int		ft_parse1_rgb_check(char *line, int num, t_data *data);
 int		ft_parse2_assign_texture_to_data(char *path, int num, t_data *data);
 int		ft_parse2_assign_RGB_to_data(t_data *data, int *rgb_values, int num);
 
+//		ft_parse3.c
+
 // EXEC
 
 // UTILS
 
-// ft_parse1_utils.c
+//		ft_parse1_utils.c
 int		ft_parse1_util_which_cardinal(char *line);
 int		ft_parse1_util_which_FC(char *line);
 int		ft_parse1_util_find_xpm(char *path);
 int		ft_parse1_util_find_duplicate_xpm(char *line, int num, t_data *data);
 int		ft_parse1_util_find_duplicate_rgb(int num, t_data *data);
 
+//		ft_parse1_utils_2.c
 int		ft_parse1_util_check_valid_rgb(char *line, int *rgb_slots);
 int		ft_parse1_util_check_valid_rgb2(char *line, int *rgb_slots);
 bool	ft_parse1_util_rgb_atoi(char *nptr, int *int_addr);
 
+//		ft_parse3_utils.c
+int		ft_parse3_util_check_valid_char(char c, bool *p1_flag, bool *multiple_flag);
+
 // FREE
+
+//		ft_free.c
 void	ft_free_tab(char **split);
 void	ft_clean_exit(t_data *data);
 

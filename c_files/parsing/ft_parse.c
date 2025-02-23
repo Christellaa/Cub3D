@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:38:48 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 03:25:21 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/23 04:27:49 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int ft_parse_check_file_rules(int open_fd, t_data *data)
 
 	ft_printf(LOGS, "[PARSE]: Verifying file rules\n");
 	line = get_next_line(open_fd, 0);
-	line[ft_strlen(line) - 1] = '\0';
+	if (line)
+		line[ft_strlen(line) - 1] = '\0';
 	while (line)
 	{
 		ft_printf(LOGSV, "[VERBOSE][PARSE1]: Here is the current line: '%s'\n", line);
@@ -90,10 +91,7 @@ int ft_parse_check_file_rules(int open_fd, t_data *data)
 		}
 		free(line);
 		if (return_num == ERROR)
-		{
-			get_next_line(open_fd, 1);
-			return (ERROR);
-		}
+			return (get_next_line(open_fd, 1), ERROR);
 		line = get_next_line(open_fd, 0);
 		if (line)
 			line[ft_strlen(line) - 1] = '\0';
@@ -101,3 +99,10 @@ int ft_parse_check_file_rules(int open_fd, t_data *data)
 	get_next_line(open_fd, 1);
 	return (0);
 }
+
+// int	ft_parse_check_map_rules(int open_fd, t_data *data)
+// {
+// 	//1) Check every line for valid characters only [1-0-N-S-W-E-' ']
+// 	//2) Do a flood fill to ensure the map is closed.
+// 	return (0);
+// }

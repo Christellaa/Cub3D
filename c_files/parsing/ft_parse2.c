@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 01:38:51 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 03:07:41 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/23 04:03:03 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,17 @@ int	ft_parse2_assign_RGB_to_data(t_data *data, int *rgb_values, int num)
 	{
 		ft_printf(LOGS, "[PARSE2]: Assigned RGB values to data->ceiling\n");
 		data->ceiling_rgb->assigned = true;
-		data->ceiling_rgb->R = rgb_values[0];
-		data->ceiling_rgb->G = rgb_values[1];
-		data->ceiling_rgb->B = rgb_values[2];
+		data->ceiling_rgb->r = rgb_values[0];
+		data->ceiling_rgb->g = rgb_values[1];
+		data->ceiling_rgb->b = rgb_values[2];
 	}
 	else
 	{
 		ft_printf(LOGS, "[PARSE2]: Assigned RGB values to data->floor\n");
 		data->floor_rgb->assigned = true;
-		data->floor_rgb->R = rgb_values[0];
-		data->floor_rgb->G = rgb_values[1];
-		data->floor_rgb->B = rgb_values[2];
+		data->floor_rgb->r = rgb_values[0];
+		data->floor_rgb->g = rgb_values[1];
+		data->floor_rgb->b = rgb_values[2];
 	}
 	return (0);
 }
