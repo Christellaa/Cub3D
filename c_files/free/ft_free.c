@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 00:09:00 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/24 03:46:53 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/24 06:48:44 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	ft_free_tab(char **split)
 
 void	ft_clean_exit(t_data *data)
 {
+	if (data->filename)
+		free(data->filename);
 	if (data->east_txt)
 		free(data->east_txt);
 	if (data->north_txt)
@@ -44,5 +46,9 @@ void	ft_clean_exit(t_data *data)
 	if (data->floor_rgb)
 		free(data->floor_rgb);
 	if (data->map)
+	{
+		if (data->map->map)
+			ft_free_tab(data->map->map);
 		free(data->map);
+	}
 }

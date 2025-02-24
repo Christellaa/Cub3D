@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:38:48 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/24 03:55:55 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/24 07:40:01 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_parse(char **argv, t_data *data)
 	int	open_fd;
 
 	ft_printf(LOGS, "[PARSE]: Parsing the argument given\n");
-	open_fd = ft_parse_check_file_path(argv);
+	open_fd = ft_parse_check_file_path(argv, data);
 	if (open_fd == ERROR)
 		return (ERROR);
 	if (ft_parse_check_file_rules(open_fd, data) == ERROR)
@@ -32,7 +32,7 @@ int	ft_parse(char **argv, t_data *data)
 // Verifies single argument with valid path and correct access rights.
 // Returns file descriptor of the file on success, -1 on error (With printed message.)
 // Function tested. Written to norm (without LOGSV).
-int	ft_parse_check_file_path(char **argv)
+int	ft_parse_check_file_path(char **argv, t_data *data)
 {
 	int	index;
 	int	open_fd;
@@ -61,6 +61,9 @@ int	ft_parse_check_file_path(char **argv)
 	open_fd = open(argv[1], O_RDONLY);
 	if (open_fd == ERROR)
 		ft_printf(2, "Error\n%s\n", strerror(errno));
+	data->filename = ft_strdup(argv[1]);
+	if (!data->filename)
+		return (ft_printf(2, "Error\nMalloc error during parsing\n"), ERROR);
 	return (open_fd);
 }
 
@@ -119,12 +122,19 @@ int ft_parse_check_file_rules(int open_fd, t_data *data)
 //The data from the map in <open_fd> can be assigned to <data> afterwards
 int	ft_parse_check_map_rules(int open_fd, t_data *data)
 {
-	(void)data;
 	ft_printf(LOGS, "[PARSE]: Verifying Map Rules.\n");
 	ft_printf(LOGSV, "[VERBOSE][PARSE]: Verifying lines have valid chars\n");
-	if (ft_parse3_check_lines(open_fd, data) == ERROR)
-		return (ERROR);
-	// if (ft_parse3_assign_map_to_data(data) == ERROR)
+	// if (ft_parse3_check_lines(open_fd, data) == ERROR)
+	// 	return (ERROR);
+	// ft_printf(LOGSV, "[VERBOSE][PARSE]: Closing and reopening fd to read map again\n");
+	// close(open_fd);
+	// open_fd = open(data->filename, O_RDONLY);
+	// if (open_fd == -1)
+	// {
+	// 	ft_printf(2, "Error\nCouldn't open file\n");
+	// 	return (ERROR);
+	// }
+	// if (ft_parse3_assign_map_to_data(open_fd, data) == ERROR)
 	// {
 	// 	close(open_fd);
 	// 	ft_printf(2, "Error\nCouldn't retrieve player/map data");

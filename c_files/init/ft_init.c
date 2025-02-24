@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:47:28 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/24 03:51:53 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/24 06:00:52 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	ft_init_map(t_map *map)
 
 void	ft_init_data_params(t_data *data)
 {
+	data->filename = NULL;
 	data->north_txt = NULL;
 	data->south_txt = NULL;
 	data->west_txt = NULL;

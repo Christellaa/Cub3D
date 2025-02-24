@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 01:15:57 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 17:53:19 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/24 06:12:36 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_parse1_util_which_cardinal(char *line)
 
 //This function takes <line> as argument
 //It returns whether the line is a floor or a ceiling as an int.
-int	ft_parse1_util_which_FC(char *line)
+int	ft_parse1_util_which_fc(char *line)
 {
 	if (line[0] == 'F' && (ft_isdigit(line[1]) || ft_iswhitespace(line[1])))
 	{
@@ -71,6 +71,7 @@ int	ft_parse1_util_find_xpm(char *path)
 	ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]: Found .xpm suffix\n");
 	return (0);
 }
+
 //This function looks for duplicate lines, assigning a texture path to a cardinal line twice.
 int	ft_parse1_util_find_duplicate_xpm(char *line, int num, t_data *data)
 {

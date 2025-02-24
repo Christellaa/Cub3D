@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/24 03:56:10 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/24 07:39:05 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 // Macros controlling the display of logs during program execution.
 // Set LOGS to 2 for simple LOGS, LOGSV to 2 for verbose (With more details).
 // Set LOGS and LOGSV to -1 to hide logs
-# define LOGS -1
-# define LOGSV -1
+# define LOGS 2
+# define LOGSV 2
 
 # define ERROR -1
 
@@ -74,6 +74,7 @@ typedef struct s_player
 
 typedef struct s_data
 {
+	char		*filename;
 	char		*north_txt;
 	char		*south_txt;
 	char		*east_txt;
@@ -102,7 +103,7 @@ void	ft_init_data_params(t_data *data);
 
 // 		ft_parse.c
 int		ft_parse(char **argv, t_data *data);
-int		ft_parse_check_file_path(char **argv);
+int		ft_parse_check_file_path(char **argv, t_data *data);
 int		ft_parse_check_file_rules(int open_fd, t_data *data);
 int		ft_parse_check_map_rules(int open_fd, t_data *data);
 
@@ -116,16 +117,13 @@ int		ft_parse1_rgb_check(char *line, int num, t_data *data);
 int		ft_parse2_assign_texture_to_data(char *path, int num, t_data *data);
 int		ft_parse2_assign_RGB_to_data(t_data *data, int *rgb_values, int num);
 
-//		ft_parse3.c
-int		ft_parse3_check_lines(int open_fd, t_data *data);
-
 // EXEC
 
 // UTILS
 
 //		ft_parse1_utils.c
 int		ft_parse1_util_which_cardinal(char *line);
-int		ft_parse1_util_which_FC(char *line);
+int		ft_parse1_util_which_fc(char *line);
 int		ft_parse1_util_find_xpm(char *path);
 int		ft_parse1_util_find_duplicate_xpm(char *line, int num, t_data *data);
 int		ft_parse1_util_find_duplicate_rgb(int num, t_data *data);
@@ -135,14 +133,10 @@ int		ft_parse1_util_check_valid_rgb(char *line, int *rgb_slots);
 int		ft_parse1_util_check_valid_rgb2(char *line, int *rgb_slots);
 bool	ft_parse1_util_rgb_atoi(char *nptr, int *int_addr);
 
-//		ft_parse3_utils.c
-int		ft_parse3_util_check_valid_char(char c, bool *p1_f, bool *m_f);
-char	*ft_parse3_util_get_next_map_line(char *line, int open_fd, int *index);
-char	*ft_parse3_util_skip_empty_lines(int open_fd);
-int		ft_parse3_util_isnt_map_line(char *line);
-char	*ft_parse3_util_get_map_line(int open_fd);
 
-int		ft_util_malloc_or_eof(char *buffer, int *bytes_read, int open_fd);
+//		ft_utils.c
+int		ft_util_malloc_or_eof(int open_fd);
+int		ft_util_check_whitespace_only(char *line);
 
 // FREE
 

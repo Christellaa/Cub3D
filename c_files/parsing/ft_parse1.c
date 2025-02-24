@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:00:11 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 23:57:09 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/24 06:12:41 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_parse1_search_cardinals(char *line)
 	if (!ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1))
 	{
 		ft_printf(LOGSV, "[VERBOSE][PARSE1]: Found a ceiling/floor line\n");
-		return (ft_parse1_util_which_FC(line));
+		return (ft_parse1_util_which_fc(line));
 	}
 	while (line[index])
 	{
