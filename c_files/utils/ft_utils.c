@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/20 07:24:26 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/24 00:38:05 by ilevy            ###   ########.fr       */
+/*   Created: 2025/02/24 03:13:33 by ilevy             #+#    #+#             */
+/*   Updated: 2025/02/24 03:36:26 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../h_files/cub3d.h"
 
-int	main(int argc, char **argv)
+int	ft_util_malloc_or_eof(char *buffer, int *bytes_read, int open_fd)
 {
-	t_data	data;
-
-	ft_printf(LOGSV, "[VERBOSE][PARSE]: Verify single arg: argc == %d\n", argc);
-	if (argc != 2)
+	*bytes_read = read(open_fd, buffer, 1);
+	if (*bytes_read == 0)
+		return (0);
+	else if (*bytes_read == -1)
 	{
-		ft_printf(2, "Error\nWrong args number.\nUsage: cub3d [map_file.cub]\n");
-		return (ERROR);
+		ft_printf(2, "Error\nCouldn't read from file\n");
+		return (-1);
 	}
-	if (ft_init_data(&data) == ERROR)
-		return (ERROR);
-	if (ft_parse(argv, &data) == ERROR)
-		return (ft_clean_exit(&data), ERROR);
-	ft_printf(2, "No errors found!\n");
-	ft_clean_exit(&data);
-	return (0);
+	return (ERROR);
 }

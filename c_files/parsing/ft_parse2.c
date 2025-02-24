@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 01:38:51 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 04:03:03 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/23 23:57:02 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,4 @@ int	ft_parse2_assign_RGB_to_data(t_data *data, int *rgb_values, int num)
 	}
 	return (0);
 }
+

@@ -6,7 +6,7 @@
 #    By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/20 23:13:34 by ilevy             #+#    #+#              #
-#    Updated: 2025/02/23 04:26:54 by ilevy            ###   ########.fr        #
+#    Updated: 2025/02/24 03:27:38 by ilevy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ INIT_DIR:= init/
 INIT:= ft_init.c
 
 UTILS_DIR:= utils/
-UTILS:= ft_parse1_utils.c ft_parse1_utils_2.c ft_parse3_utils.c
+UTILS:= ft_parse1_utils.c ft_parse1_utils_2.c ft_parse3_utils.c \
+		ft_utils.c
 
 FREE_DIR:= free/
 FREE:= ft_free.c

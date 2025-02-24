@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 18:05:18 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/24 03:42:49 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
 # define FLOOR 4
 # define CEILING 5
 
+# define MAX_LINE_LEN 1024
+
 // ------------TYPEDEF--------------
 
 typedef struct s_rgb
@@ -51,6 +53,14 @@ typedef struct s_rgb
 	unsigned char	g;
 	unsigned char	b;
 }t_rgb;
+
+typedef struct s_map
+{
+	char	**map;
+	int		rows;
+	int		columns;
+	int		starting_point;
+}t_map;
 
 typedef struct s_pos
 {
@@ -74,6 +84,8 @@ typedef struct s_data
 	t_rgb		*ceiling_rgb;
 
 	t_player	*player;
+	
+	t_map		*map;
 }t_data;
 
 // ------------DECLARE--------------
@@ -81,9 +93,11 @@ typedef struct s_data
 // INITIALIZING
 
 // 		ft_init.c
-int	ft_init_data(t_data *data);
-int	ft_init_rgbs(t_rgb *ceiling, t_rgb *floor);
-int	ft_init_player(t_player *player);
+int		ft_init_data(t_data *data);
+void	ft_init_rgbs(t_rgb *ceiling, t_rgb *floor);
+void	ft_init_player(t_player *player);
+void	ft_init_map(t_map *map);
+void	ft_init_data_params(t_data *data);
 
 // PARSING
 
@@ -123,8 +137,13 @@ int		ft_parse1_util_check_valid_rgb2(char *line, int *rgb_slots);
 bool	ft_parse1_util_rgb_atoi(char *nptr, int *int_addr);
 
 //		ft_parse3_utils.c
-int		ft_parse3_util_check_valid_char(char c, bool *p1_flag, bool *multiple_flag);
-char	*ft_parse3_util_get_next_map_line(char *line, int open_fd);
+int		ft_parse3_util_check_valid_char(char c, bool *p1_f, bool *m_f);
+char	*ft_parse3_util_get_next_map_line(char *line, int open_fd, int *index);
+char	*ft_parse3_util_skip_empty_lines(int open_fd);
+int		ft_parse3_util_isnt_map_line(char *line);
+char	*ft_parse3_util_get_map_line(int open_fd);
+
+int		ft_util_malloc_or_eof(char *buffer, int *bytes_read, int open_fd);
 
 // FREE
 
