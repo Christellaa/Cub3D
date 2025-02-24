@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:38:48 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/24 02:46:07 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/24 03:55:55 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int ft_parse_check_file_rules(int open_fd, t_data *data)
 		line[ft_strlen(line) - 1] = '\0';
 	while (line && all_cardinals != 6)
 	{
-		data->map->starting_point++;
 		ft_printf(LOGSV, "[VERBOSE][PARSE1]: Here is the current line: '%s'\n", line);
 		num = ft_parse1_search_cardinals(line);
 		if ((num >= NORTH && num <= WEST) || (num == FLOOR || num == CEILING))
@@ -123,7 +122,7 @@ int	ft_parse_check_map_rules(int open_fd, t_data *data)
 	(void)data;
 	ft_printf(LOGS, "[PARSE]: Verifying Map Rules.\n");
 	ft_printf(LOGSV, "[VERBOSE][PARSE]: Verifying lines have valid chars\n");
-	if (ft_parse3_check_lines(open_fd) == ERROR)
+	if (ft_parse3_check_lines(open_fd, data) == ERROR)
 		return (ERROR);
 	// if (ft_parse3_assign_map_to_data(data) == ERROR)
 	// {

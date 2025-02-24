@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:47:28 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/24 02:29:15 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/24 03:51:53 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	ft_init_map(t_map *map)
 	map->map = NULL;
 	map->columns = 0;
 	map->rows = 0;
-	map->starting_point = 0;
 }
 
 void	ft_init_data_params(t_data *data)

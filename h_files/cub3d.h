@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/24 03:42:49 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/24 03:56:10 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 // Macros controlling the display of logs during program execution.
 // Set LOGS to 2 for simple LOGS, LOGSV to 2 for verbose (With more details).
 // Set LOGS and LOGSV to -1 to hide logs
-# define LOGS 2
-# define LOGSV 2
+# define LOGS -1
+# define LOGSV -1
 
 # define ERROR -1
 
@@ -59,7 +59,6 @@ typedef struct s_map
 	char	**map;
 	int		rows;
 	int		columns;
-	int		starting_point;
 }t_map;
 
 typedef struct s_pos
@@ -118,7 +117,7 @@ int		ft_parse2_assign_texture_to_data(char *path, int num, t_data *data);
 int		ft_parse2_assign_RGB_to_data(t_data *data, int *rgb_values, int num);
 
 //		ft_parse3.c
-int		ft_parse3_check_lines(int open_fd);
+int		ft_parse3_check_lines(int open_fd, t_data *data);
 
 // EXEC
 

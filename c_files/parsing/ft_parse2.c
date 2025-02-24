@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 01:38:51 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 23:57:02 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/24 03:48:23 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,22 @@ int	ft_parse2_assign_texture_to_data(char *path, int num, t_data *data)
 	if (num == NORTH)
 	{
 		data->north_txt = strdup(path);
-		ft_printf(2, "[PARSE2]: Assigned %s to data->north_txt\n", data->north_txt);
+		ft_printf(LOGS, "[PARSE2]: Assigned %s to data->north_txt\n", data->north_txt);
 	}
 	else if (num == SOUTH)
 	{
 		data->south_txt = strdup(path);
-		ft_printf(2, "[PARSE2]: Assigned %s to data->south_txt\n", data->south_txt);
+		ft_printf(LOGS, "[PARSE2]: Assigned %s to data->south_txt\n", data->south_txt);
 	}
 	else if (num == EAST)
 	{
 		data->east_txt = strdup(path);
-		ft_printf(2, "[PARSE2]: Assigned %s to data->east_txt\n", data->east_txt);
+		ft_printf(LOGS, "[PARSE2]: Assigned %s to data->east_txt\n", data->east_txt);
 	}
 	else if (num == WEST)
 	{
 		data->west_txt = strdup(path);
-		ft_printf(2, "[PARSE2]: Assigned %s to data->west_txt\n", data->west_txt);
+		ft_printf(LOGS, "[PARSE2]: Assigned %s to data->west_txt\n", data->west_txt);
 	}
 	return (0);
 }

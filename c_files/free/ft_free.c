@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 00:09:00 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/23 17:58:23 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/24 03:46:53 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,6 @@ void	ft_clean_exit(t_data *data)
 		free(data->ceiling_rgb);
 	if (data->floor_rgb)
 		free(data->floor_rgb);
+	if (data->map)
+		free(data->map);
 }
