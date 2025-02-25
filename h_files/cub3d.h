@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/25 04:59:43 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/25 07:09:17 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 // Macros controlling the display of logs during program execution.
 // Set LOGS to 2 for simple LOGS, LOGSV to 2 for verbose (With more details).
 // Set LOGS and LOGSV to -1 to hide logs
-# define LOGS 2
-# define LOGSV 2
+# define LOGS -1
+# define LOGSV -1
 
 # define ERROR -1
 
@@ -141,7 +141,10 @@ int		ft_parse3_util_skip_to_map(char **line, int temp_fd);
 int		ft_parse3_util_skip_one(char *line);
 int		ft_parse3_util_alloc_map_memory(char **line, int fd, t_data *data);
 int		ft_parse3_util_skip_whitespaces(char **line, int open_fd);
+int		ft_parse3_util_is_invalid_line(char **line);
 
+//		ft_parse3_utils_2.c
+int		ft_parse3_util2_initialize_map(char **line, int open_fd, t_data *data);
 
 
 //		ft_utils.c

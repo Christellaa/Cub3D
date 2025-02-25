@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 01:18:05 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/25 05:17:01 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/25 07:16:48 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	ft_parse3_util_skip_to_map(char **line, int open_fd)
 {
 	int	gnl_return;
 	
-	if (ft_util_is_whitespace_only(line) == ERROR)
+	if (*line && (*line)[0] != '\0' && ft_util_is_whitespace_only(line) == ERROR)
 	{
-		ft_printf(LOGSV, "[VERBOSE][PARSE3_UTIL]: Found first line of map %s\n", *line);
+		ft_printf(LOGSV, "[VERBOSE][PARSE3_UTIL]: Started on first line of map %s\n", *line);
 		return (0);
 	}
 	if (*line)
@@ -52,7 +52,7 @@ int	ft_parse3_util_skip_to_map(char **line, int open_fd)
 			return (get_next_line(open_fd, 1), ERROR);
 		}
 	}
-	ft_printf(LOGSV, "[VERBOSE][PARSE3_UTIL]: Found first line of map %s\n", *line);
+	ft_printf(LOGSV, "[VERBOSE][PARSE3_UTIL]: Found first line of map: %s\n", *line);
 	return (0);
 }
 
@@ -80,9 +80,47 @@ int	ft_parse3_util_skip_one(char *line)
 
 int	ft_parse3_util_alloc_map_memory(char **line, int fd, t_data *data)
 {
-	(void) fd;
-	(void) data;
+	ft_printf(LOGSV, "[VERBOSE][PARSE3]: Allocating memory for char **map\n");
+	while (*line && ft_util_is_whitespace_only(line) == ERROR)
+	{
+		if (ft_parse3_util_is_invalid_line(line))
+		{
+			ft_printf(2, "Error\nInvalid line detected %s\n", *line);
+			free(*line);
+			return (get_next_line(fd, 1), ERROR);
+		}
+		data->map->rows += 1;
+		if (ft_util_safe_gnl(line, fd, 0) == ERROR)
+		{
+			free(*line);
+			return (get_next_line(fd, 1), ERROR);
+		}
+	}
+	data->map->map = (char **)malloc(sizeof(char *) * (data->map->rows + 1));
 	free(*line);
 	get_next_line(fd, 1);
+	if (!data->map->map)
+		return (ft_printf(2, "Error\nMalloc failure\n"), ERROR);
+	return (0);
+}
+
+int	ft_parse3_util_is_invalid_line(char **line)
+{
+	int i;
+	char	*temp;
+	
+	temp = ft_strdup(*line);
+	i = 0;
+	while (temp[i])
+	{
+		if (temp[i] != '1' && temp[i] != '0' && temp[i] != ' '
+			&& temp[i] != 'N' && temp[i] != 'S' && temp[i] != 'E'
+			&& temp[i] != 'W')
+			{
+				return (free(temp), ERROR);
+			}
+		i++;
+	}
+	free(temp);
 	return (0);
 }

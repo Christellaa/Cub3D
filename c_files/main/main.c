@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:24:26 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/25 02:53:30 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/25 07:09:00 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_data	data;
+	int	i = 0;
 	
 	ft_printf(LOGSV, "[VERBOSE][PARSE]: Verify single arg: argc == %d\n", argc);
 	if (argc != 2)
@@ -26,6 +27,12 @@ int	main(int argc, char **argv)
 		return (ERROR);
 	if (ft_parse(argv, &data) == ERROR)
 		return (ft_clean_exit(&data), ERROR);
+	ft_printf(2, "Map is:\n");
+	while (data.map->map[i])
+	{
+		ft_printf(2, "%s\n", data.map->map[i]);
+		i++;
+	}
 	ft_printf(2, "No errors found!\n");
 	return (ft_clean_exit(&data), 0);
 }

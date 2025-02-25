@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:38:48 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/25 04:54:55 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/25 06:34:05 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ int	ft_parse_check_map_rules(char **line, int open_fd, t_data *data)
 	if (ft_parse3_assign_map_to_data(line, open_fd, data) == ERROR)
 	{
 		close(open_fd);
-		ft_printf(2, "Error\nCouldn't retrieve player/map data");
 		return (ERROR);
 	}
 	// ft_printf(LOGSV, "[VERBOSE][PARSE]: Closing and reopening fd to read map again\n");

@@ -6,21 +6,22 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 03:13:33 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/25 05:08:42 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/25 07:12:20 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../h_files/cub3d.h"
 
 // This function checks the entire line is comprised of whitespace characters
+// returns 0 if true, error otherwise.
 int	ft_util_is_whitespace_only(char **line)
 {
 	int i;
 
 	i = 0;
-	while (*line[i])
+ 	while ((*line)[i])
 	{
-		if (!ft_iswhitespace(*line[i]) && *line[i] != '\n')
+		if (!ft_iswhitespace((*line)[i]) && (*line)[i] != '\n')
 			return (ERROR);
 		i++;
 	}
