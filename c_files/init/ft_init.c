@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:47:28 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/24 06:00:52 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/25 13:56:39 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,20 @@
 
 int	ft_init_data(t_data *data)
 {
-	t_rgb 		*ceiling;
-	t_rgb 		*floor;
-	t_player	*p1;
-	t_map		*map;
-
-	ceiling = (t_rgb *)malloc(1 * sizeof(t_rgb));
-	floor = (t_rgb *)malloc(1 * sizeof(t_rgb));
-	p1 = (t_player *)malloc(1 * sizeof(t_player));
-	map = (t_map *)malloc(1 * sizeof(t_map));
-	if (!ceiling || !floor || !p1 || !map)
+	ft_init_data_params(data);
+	data->ceiling_rgb = (t_rgb *)malloc(1 * sizeof(t_rgb));
+	data->floor_rgb = (t_rgb *)malloc(1 * sizeof(t_rgb));
+	data->player = (t_player *)malloc(1 * sizeof(t_player));
+	data->map = (t_map *)malloc(1 * sizeof(t_map));
+	if (!data->ceiling_rgb || !data->floor_rgb || !data->player || !data->map)
 	{
-		if (ceiling)
-			free(ceiling);
-		if (floor)
-			free(floor);
-		if (p1)
-			free(p1);
-		if (map)
-			free(map);
+		if (data->map)
+			data->map->map = NULL;
 		return (ft_printf(2, "Error\n Malloc error during init\n"), ERROR);
 	}
-	ft_init_map(map);
-	ft_init_player(p1);
-	ft_init_rgbs(ceiling, floor);
-	ft_init_data_params(data);
-	data->player = p1;
-	data->ceiling_rgb = ceiling;
-	data->floor_rgb = floor;
-	data->map = map;
+	ft_init_map(data->map);
+	ft_init_player(data->player);
+	ft_init_rgbs(data->ceiling_rgb, data->floor_rgb);
 	return (0);
 }
 

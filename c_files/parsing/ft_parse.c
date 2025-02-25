@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:38:48 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/25 07:29:08 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/25 14:26:11 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,13 @@ int	ft_parse_check_file_path(char **argv, t_data *data)
 	ft_printf(LOGSV, "[VERBOSE][PARSE]: Verifying .cub extension: argv[1] == %s\n", argv[1]);
 	index = ft_strlen(argv[1]) - 1;
 	if (index <= 4)
-	{
-		ft_printf(2, "Error\nInvalid file format\nUsage: cub3d [map_file.cub]\n");
-		return (ERROR);
-	}
-	if (argv[1][index] != 'b' || argv[1][index - 1] != 'u'
-		|| argv[1][index - 2] != 'c' || argv[1][index - 3] != '.')
-	{
-		ft_printf(2, "Error\nInvalid file format\nUsage: cub3d [map_file.cub]\n");
-		return (ERROR);
-	}
+		return (ft_printf(2, FILE_FORMAT), ERROR);
+	if (ft_strncmp((argv[1] + ft_strlen(argv[1]) - 4), ".cub", 4))
+		return (ft_printf(2, FILE_FORMAT), ERROR);
 	ft_printf(LOGSV, "[VERBOSE][PARSE]: Verifying access and path to file.\n");
 	open_fd = open(argv[1], __O_DIRECTORY);
 	if (open_fd != -1)
-	{
-		ft_printf(2, "Error\nCouldn't open file:is a directory");
-		return (ERROR);
-	}
+		return (ft_printf(2, FILE_DIR), ERROR);
 	open_fd = open(argv[1], O_RDONLY);
 	if (open_fd == ERROR)
 		ft_printf(2, "Error\n%s\n", strerror(errno));
