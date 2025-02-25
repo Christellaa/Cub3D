@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:38:48 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/25 06:34:05 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/25 07:29:08 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int ft_parse_check_file_rules(char **line, int open_fd, t_data *data)
 	all_cardinals = 0;
 	*line = NULL;
 	if (ft_util_safe_gnl(line, open_fd, 0) == ERROR)
-		return (ERROR);
+		return (get_next_line(open_fd, 1), close(open_fd), ERROR);
 	while (*line && all_cardinals != 6)
 	{
 		ft_printf(LOGSV, "[VERBOSE][PARSE1]: Here is the current line: '%s'\n", *line);
@@ -98,14 +98,14 @@ int ft_parse_check_file_rules(char **line, int open_fd, t_data *data)
 		free(*line);
 		*line = NULL;
 		if (num == ERROR)
-			return (get_next_line(open_fd, 1), ERROR);
+			return (get_next_line(open_fd, 1), close(open_fd), ERROR);
 		if (ft_util_safe_gnl(line, open_fd, 0) == ERROR)
-			return (ERROR);
+			return (get_next_line(open_fd, 1), close(open_fd), ERROR);
 	}
 	if (all_cardinals != 6)
 	{
 		ft_printf(2, "Error\nMissing cardinal or floor/ceiling lign.\n");
-		return (ERROR);
+		return (get_next_line(open_fd, 1), close(open_fd), ERROR);
 	}
 	return (0);
 }
