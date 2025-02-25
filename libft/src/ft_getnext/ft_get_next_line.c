@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 16:34:32 by abedin            #+#    #+#             */
-/*   Updated: 2025/02/24 03:02:53 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/24 23:40:46 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	manage_line_in_rest(char **ret, char *prest, int pos_ln)
 {
 	*ret = malloc((pos_ln + 2) * sizeof(char));
 	if (!(*ret))
-		return (1);
+		return (errno = ENOMEM);
 	(*ret)[pos_ln + 1] = '\0';
 	ft_strncpy(*ret, prest, pos_ln + 1);
 	ft_strncpy(prest, prest + pos_ln + 1, BUFFER_SIZE);
@@ -105,7 +105,7 @@ t_cstr	*read_to_ln(int fd, int *pos_end, char *buffer)
 		if (!curr_cstr)
 		{
 			*pos_end = -1;
-			return (NULL);
+			return (errno = ENOMEM, NULL);
 		}
 		pos_ln = ft_strchrp_gnl(buffer, '\n');
 		if (pos_ln != -1)
@@ -155,7 +155,7 @@ char	*get_next_line(int fd, int mode)
 		return (NULL);
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
-		return (NULL);
+		return (errno = ENOMEM, NULL);
 	curr_cstr = find_cstr_by_fd(&prest, fd);
 	ret = NULL;
 	pos_ln = ft_strchrp_gnl(curr_cstr->data, '\n');

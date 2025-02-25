@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:00:11 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/24 06:12:41 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/25 01:59:29 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //This functions looks for the first three characters of a "Cardinal" line.
 //If the line being read is a "Cardinal line", function returns the cardinal value
-//If the line being read is empty or full of spaces, returns the floor/ceiling value
+//If the line being read is empty or full of spaces, returns 42
 //Else returns -1
 int	ft_parse1_search_cardinals(char *line)
 {
@@ -34,7 +34,7 @@ int	ft_parse1_search_cardinals(char *line)
 	}
 	while (line[index])
 	{
-		if (ft_iswhitespace(line[index]))
+		if (ft_iswhitespace(line[index]) || line[index] == '\n')
 			index++;
 		else
 			return (ft_printf(2, "Error\nFound an invalid line\n"), ERROR);

@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/24 07:39:05 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/25 04:59:43 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void	ft_init_data_params(t_data *data);
 // 		ft_parse.c
 int		ft_parse(char **argv, t_data *data);
 int		ft_parse_check_file_path(char **argv, t_data *data);
-int		ft_parse_check_file_rules(int open_fd, t_data *data);
-int		ft_parse_check_map_rules(int open_fd, t_data *data);
+int		ft_parse_check_file_rules(char **line, int open_fd, t_data *data);
+int		ft_parse_check_map_rules(char **line, int open_fd, t_data *data);
 
 // 		ft_parse1.c
 int		ft_parse1_search_cardinals(char *line);
@@ -116,6 +116,9 @@ int		ft_parse1_rgb_check(char *line, int num, t_data *data);
 // 		ft_parse2.c
 int		ft_parse2_assign_texture_to_data(char *path, int num, t_data *data);
 int		ft_parse2_assign_RGB_to_data(t_data *data, int *rgb_values, int num);
+
+//		ft_parse3.c
+int		ft_parse3_assign_map_to_data(char **line, int open_fd, t_data *data);
 
 // EXEC
 
@@ -133,10 +136,18 @@ int		ft_parse1_util_check_valid_rgb(char *line, int *rgb_slots);
 int		ft_parse1_util_check_valid_rgb2(char *line, int *rgb_slots);
 bool	ft_parse1_util_rgb_atoi(char *nptr, int *int_addr);
 
+//		ft_parse3_utils.c
+int		ft_parse3_util_skip_to_map(char **line, int temp_fd);
+int		ft_parse3_util_skip_one(char *line);
+int		ft_parse3_util_alloc_map_memory(char **line, int fd, t_data *data);
+int		ft_parse3_util_skip_whitespaces(char **line, int open_fd);
+
+
 
 //		ft_utils.c
 int		ft_util_malloc_or_eof(int open_fd);
-int		ft_util_check_whitespace_only(char *line);
+int		ft_util_is_whitespace_only(char **line);
+int		ft_util_safe_gnl(char **line, int fd, int mode);
 
 // FREE
 

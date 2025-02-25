@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 01:15:57 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/24 06:12:36 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/25 00:18:46 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ int	ft_parse1_util_which_fc(char *line)
 }
 
 // Looks for the .xpm suffix at the end of a texture path.
-int	ft_parse1_util_find_xpm(char *path)
+int	ft_parse1_util_find_xpm(char *p)
 {
-	ft_printf(LOGS, "[PARSE1_UTIL]: Looking for .xpm suffix: %s\n", path);
-	if (ft_strncmp(path + ft_strlen(path) - 4, ".xpm", 4))
+	ft_printf(LOGS, "[PARSE1_UTIL]: Looking for .xpm suffix: %s\n", p);
+	if (ft_strncmp(p + ft_strlen(p) - 4, ".xpm", 4) || ft_strlen(p) < 4)
 	{
-		ft_printf(2, "Error\nTexture file must end by .xpm: %s", path);
+		ft_printf(2, "Error\nTexture file must end by .xpm: %s", p);
 		return (ERROR);
 	}
 	ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]: Found .xpm suffix\n");

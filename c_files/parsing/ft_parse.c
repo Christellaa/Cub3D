@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:38:48 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/24 07:40:01 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/25 04:54:55 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@
 int	ft_parse(char **argv, t_data *data)
 {
 	int	open_fd;
+	char	*line;
 
 	ft_printf(LOGS, "[PARSE]: Parsing the argument given\n");
 	open_fd = ft_parse_check_file_path(argv, data);
+	line = NULL;
 	if (open_fd == ERROR)
 		return (ERROR);
-	if (ft_parse_check_file_rules(open_fd, data) == ERROR)
+	if (ft_parse_check_file_rules(&line, open_fd, data) == ERROR)
 		return (ERROR);
-	if (ft_parse_check_map_rules(open_fd, data) == ERROR)
+	if (ft_parse_check_map_rules(&line, open_fd, data) == ERROR)
 		return(close(open_fd), ERROR);
 	return (close(open_fd), 0);
 }
@@ -72,42 +74,34 @@ int	ft_parse_check_file_path(char **argv, t_data *data)
 // It verifies that there are 2 lines containing floor and ceiling colors in RGB.
 // It verifies that there is a map (But doesn't verify the map_rules itself.)
 // Returns (-1) on error, 0 on successful file.
-int ft_parse_check_file_rules(int open_fd, t_data *data)
+int ft_parse_check_file_rules(char **line, int open_fd, t_data *data)
 {
-	char	*line;
 	int		all_cardinals;
 	int		num;
 
 	ft_printf(LOGS, "[PARSE]: Verifying file rules\n");
 	all_cardinals = 0;
-	line = get_next_line(open_fd, 0);
-	if (!line)
-	{
-		ft_printf(2, "Error\nMalloc failure in GNL or empty file\n");
+	*line = NULL;
+	if (ft_util_safe_gnl(line, open_fd, 0) == ERROR)
 		return (ERROR);
-	}
-	if (line)
-		line[ft_strlen(line) - 1] = '\0';
-	while (line && all_cardinals != 6)
+	while (*line && all_cardinals != 6)
 	{
-		ft_printf(LOGSV, "[VERBOSE][PARSE1]: Here is the current line: '%s'\n", line);
-		num = ft_parse1_search_cardinals(line);
+		ft_printf(LOGSV, "[VERBOSE][PARSE1]: Here is the current line: '%s'\n", *line);
+		num = ft_parse1_search_cardinals(*line);
 		if ((num >= NORTH && num <= WEST) || (num == FLOOR || num == CEILING))
 		{
 			ft_printf(LOGSV, "[VERBOSE][PARSE1]: Found a special line. Analysing path\n");
-			if (ft_parse1_check_line(line, num, data) == ERROR)
+			if (ft_parse1_check_line(*line, num, data) == ERROR)
 				num = ERROR;
 			all_cardinals++;
 		}
-		free(line);
+		free(*line);
+		*line = NULL;
 		if (num == ERROR)
 			return (get_next_line(open_fd, 1), ERROR);
-		line = get_next_line(open_fd, 0);
-		if (line)
-			line[ft_strlen(line) - 1] = '\0';
+		if (ft_util_safe_gnl(line, open_fd, 0) == ERROR)
+			return (ERROR);
 	}
-	free(line);
-	get_next_line(open_fd, 1);
 	if (all_cardinals != 6)
 	{
 		ft_printf(2, "Error\nMissing cardinal or floor/ceiling lign.\n");
@@ -120,24 +114,22 @@ int ft_parse_check_file_rules(int open_fd, t_data *data)
 //Characters within are only: [1, 0, N, S, E, W, ' ']
 //The map is closed and there are no whitespaces within the map visible by the player.
 //The data from the map in <open_fd> can be assigned to <data> afterwards
-int	ft_parse_check_map_rules(int open_fd, t_data *data)
+int	ft_parse_check_map_rules(char **line, int open_fd, t_data *data)
 {
-	ft_printf(LOGS, "[PARSE]: Verifying Map Rules.\n");
+	ft_printf(LOGS, "[PARSE]: Verifying Map Rules %s.\n", *line);
 	ft_printf(LOGSV, "[VERBOSE][PARSE]: Verifying lines have valid chars\n");
-	// if (ft_parse3_check_lines(open_fd, data) == ERROR)
-	// 	return (ERROR);
+	if (ft_parse3_assign_map_to_data(line, open_fd, data) == ERROR)
+	{
+		close(open_fd);
+		ft_printf(2, "Error\nCouldn't retrieve player/map data");
+		return (ERROR);
+	}
 	// ft_printf(LOGSV, "[VERBOSE][PARSE]: Closing and reopening fd to read map again\n");
 	// close(open_fd);
 	// open_fd = open(data->filename, O_RDONLY);
 	// if (open_fd == -1)
 	// {
 	// 	ft_printf(2, "Error\nCouldn't open file\n");
-	// 	return (ERROR);
-	// }
-	// if (ft_parse3_assign_map_to_data(open_fd, data) == ERROR)
-	// {
-	// 	close(open_fd);
-	// 	ft_printf(2, "Error\nCouldn't retrieve player/map data");
 	// 	return (ERROR);
 	// }
 	// else if (ft_parse3_flood_fill(open_fd) == ERROR)

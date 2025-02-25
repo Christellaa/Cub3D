@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 01:38:51 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/24 03:48:23 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/25 01:39:33 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_parse2_assign_texture_to_data(char *path, int num, t_data *data)
 {
 	if (num == NORTH)
 	{
-		data->north_txt = strdup(path);
+		data->north_txt = ft_strdup(path);
 		ft_printf(LOGS, "[PARSE2]: Assigned %s to data->north_txt\n", data->north_txt);
 	}
 	else if (num == SOUTH)
