@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:38:48 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/26 10:32:09 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:29:37 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ int ft_parse_check_file_rules(char **line, int open_fd, t_data *data)
 		if ((num >= NORTH && num <= WEST) || (num == FLOOR || num == CEILING))
 		{
 			ft_printf(LOGSV, "[VERBOSE][PARSE1]: Found a special line. Analysing path\n");
-			if (ft_parse1_check_line(*line, num, data) == ERROR)
-				num = ERROR;
+			num = ft_parse1_check_line(*line, num, data);
 			all_cardinals++;
 		}
 		free(*line);
