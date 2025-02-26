@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/25 14:22:14 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:28:51 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@
 
 # define MAX_LINE_LEN 1024
 
-#define USAGE "Error\nWrong args number.\nUsage: cub3d [map_file.cub]\n"
-#define FILE_FORMAT "Error\nInvalid file format\nUsage: cub3d [map_file.cub]\n"
+#define USAGE "Error\nWrong args number.\nUsage: cub3D [map_file.cub]\n"
+#define FILE_FORMAT "Error\nInvalid file format\nUsage: cub3D [map_file.cub]\n"
 #define FILE_DIR "Error\nCouldn't open file: is a directory\n"
 
 // ------------TYPEDEF--------------
