@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 06:13:05 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/27 05:27:04 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/27 05:34:01 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	ft_parse3_util2_check_map_closed(t_map *map)
 		{
 			int new_x = curr.x + dir_x[i];
 			int new_y = curr.y + dir_y[i];
-			if (new_y < 0 || new_y >= (int)ft_strlen(map->map[new_y])|| new_x < 0 || new_x >= (int)ft_strlen(map->map[new_y]))
+			if (new_y < 0 || new_y >= map->rows || new_x < 0 || new_x >= (int)ft_strlen(map->map[new_y]))
 			{
 				ft_printf(2, "Error\nInvalid map: Reached border\n");
 				free(stack.pos_data);
