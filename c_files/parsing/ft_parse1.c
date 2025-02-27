@@ -6,14 +6,14 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:00:11 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/25 07:27:42 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/27 23:25:34 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../h_files/cub3d.h"
 
 //This functions looks for the first three characters of a "Cardinal" line.
-//If the line being read is a "Cardinal line", function returns the cardinal value
+//If the line being read is a "Cardinal line", function returns the card value
 //If the line being read is empty or full of spaces, returns 42
 //Else returns -1
 int	ft_parse1_search_cardinals(char *line)
@@ -44,37 +44,39 @@ int	ft_parse1_search_cardinals(char *line)
 	return (ERROR);
 }
 
-//This function takes the <line> given as argument and verifies that it is rule compliant.
+//This function takes the <line> as argument and verifies it follows rule.
 //If it is, then it is assigned to the data struct.
 int	ft_parse1_check_line(char *line, int num, t_data *data)
 {
 	ft_printf(LOGS, "[PARSE1]: Verifying line\n");
 	if (num >= NORTH && num <= WEST)
 	{
-		ft_printf(LOGSV, "[VERBOSE][PARSE1]: Verifying XPM path for line: %s\n", line);
+		ft_printf(LOGSV, "[VERBOSE][PARSE1]: Verifying XPM path %s\n", line);
 		return (ft_parse1_xpm_check(line, num, data));
 	}
 	else if (num == FLOOR || num == CEILING)
 	{
-		ft_printf(LOGSV, "[VERBOSE][PARSE1]: Verifying RGB values for line %s\n", line);
+		ft_printf(LOGSV, "[VERBOSE][PARSE1]: Verifying RGB values %s\n", line);
 		return (ft_parse1_rgb_check(line, num, data));
 	}
-	ft_printf(LOGSV, "[VERBOSE][PARSE1]: num is neither ceiling floor nor cardinal in check_line function\n");
 	return (ERROR);
 }
 
+//This function verifies that the file in <line> is a path to a valid xpm file.
+//It also verifies that there is no texture duplication for data.
+//It then leads to data assignation
 int	ft_parse1_xpm_check(char *line, int num, t_data *data)
 {
 	int	new_index;
-	int texture_fd;
-	
+	int	texture_fd;
+
 	new_index = 2;
 	while (ft_iswhitespace(line[new_index]))
 		new_index++;
 	ft_printf(LOGSV, "[VERBOSE][PARSE1]: xpm path is: %s\n", &line[new_index]);
 	if (ft_parse1_util_find_xpm(&line[new_index]) == ERROR)
 		return (ERROR);
-	if (ft_parse1_util_find_duplicate_xpm(line, num, data) == ERROR)
+	if (ft_parse1_util_find_duplicate_xpm(num, data) == ERROR)
 		return (ERROR);
 	texture_fd = open(&line[new_index], __O_DIRECTORY);
 	if (texture_fd != -1)
@@ -92,15 +94,17 @@ int	ft_parse1_xpm_check(char *line, int num, t_data *data)
 	return (ft_parse2_assign_texture_to_data(&line[new_index], num, data));
 }
 
+//This function verifies that the RGB values for data are correct
+// And that theyre not being assigned duplicatively
 int	ft_parse1_rgb_check(char *line, int num, t_data *data)
 {
 	int	new_index;
 	int	rgb_values[3];
-	
+
 	new_index = 1;
 	while (ft_iswhitespace(line[new_index]))
 		new_index++;
-	ft_printf(LOGSV, "[VERBOSE][PARSE1]: RGB values are: %s\n", &line[new_index]);
+	ft_printf(LOGSV, "[VERBOSE][PARSE1]: RGB nums: %s\n", &line[new_index]);
 	if (ft_parse1_util_find_duplicate_rgb(num, data) == ERROR)
 	{
 		ft_printf(2, "Error\nMultiple assignment of Floor/Ceiling\n");
@@ -111,5 +115,5 @@ int	ft_parse1_rgb_check(char *line, int num, t_data *data)
 		ft_printf(2, "Error\nInvalid RGB format given to Floor/Ceiling");
 		return (ERROR);
 	}
-	return (ft_parse2_assign_RGB_to_data(data, rgb_values, num));
+	return (ft_parse2_assign_rgb_to_data(data, rgb_values, num));
 }

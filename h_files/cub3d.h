@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/27 05:26:52 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/27 23:22:34 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 // Macros controlling the display of logs during program execution.
 // Set LOGS to 2 for simple LOGS, LOGSV to 2 for verbose (With more details).
 // Set LOGS and LOGSV to -1 to hide logs
-# define LOGS -1
-# define LOGSV -1
+# define LOGS 2
+# define LOGSV 2
 
 # define ERROR -1
 
@@ -44,9 +44,9 @@
 
 # define MAX_LINE_LEN 1024
 
-#define USAGE "Error\nWrong args number.\nUsage: cub3D [map_file.cub]\n"
-#define FILE_FORMAT "Error\nInvalid file format\nUsage: cub3D [map_file.cub]\n"
-#define FILE_DIR "Error\nCouldn't open file: is a directory\n"
+# define USAGE "Error\nWrong args number.\nUsage: cub3D [map_file.cub]\n"
+# define FILE_FORMAT "Error\nInvalid file format\nUsage: cub3D [map_file.cub]\n"
+# define FILE_DIR "Error\nCouldn't open file: is a directory\n"
 
 // ------------TYPEDEF--------------
 
@@ -98,7 +98,7 @@ typedef struct s_data
 	t_rgb		*ceiling_rgb;
 
 	t_player	*player;
-	
+
 	t_map		*map;
 }t_data;
 
@@ -118,7 +118,7 @@ void	ft_init_data_params(t_data *data);
 // 		ft_parse.c
 int		ft_parse(char **argv, t_data *data);
 int		ft_parse_check_file_path(char **argv, t_data *data);
-int		ft_parse_check_file_rules(char **line, int open_fd, t_data *data);
+int		ft_parse_check_file_rules(char **line, int fd, t_data *data, int card);
 int		ft_parse_check_map_rules(char **line, int open_fd, t_data *data);
 
 // 		ft_parse1.c
@@ -129,7 +129,7 @@ int		ft_parse1_rgb_check(char *line, int num, t_data *data);
 
 // 		ft_parse2.c
 int		ft_parse2_assign_texture_to_data(char *path, int num, t_data *data);
-int		ft_parse2_assign_RGB_to_data(t_data *data, int *rgb_values, int num);
+int		ft_parse2_assign_rgb_to_data(t_data *data, int *rgb_values, int num);
 
 //		ft_parse3.c
 int		ft_parse3_assign_map_to_data(char **line, int open_fd, t_data *data);
@@ -143,7 +143,7 @@ int		ft_parse3_flood_fill(t_data *data);
 int		ft_parse1_util_which_cardinal(char *line);
 int		ft_parse1_util_which_fc(char *line);
 int		ft_parse1_util_find_xpm(char *path);
-int		ft_parse1_util_find_duplicate_xpm(char *line, int num, t_data *data);
+int		ft_parse1_util_find_duplicate_xpm(int num, t_data *data);
 int		ft_parse1_util_find_duplicate_rgb(int num, t_data *data);
 
 //		ft_parse1_utils_2.c
@@ -161,21 +161,22 @@ int		ft_parse3_util_is_invalid_line(char **line);
 //		ft_parse3_utils_2.c
 int		ft_parse3_util2_initialize_map(char **line, int open_fd, t_data *data);
 int		ft_parse3_util2_single_player(t_data *data);
-int		ft_parse3_util2_is_player(char c, t_map *map, int x, int y);
+int		ft_p3_isp(char c, t_map *map, int x, int y);
 int		ft_parse3_util2_check_map_closed(t_map *map);
 int		ft_parse3_util2_perform_ff(t_map *map, t_stack *stack);
 
 //		ft_ff_util.c
 void	ft_ff_util_push(t_stack *stack, int x, int y);
-t_pos	ft_ff_util_pop(t_stack *stack);
+t_pos	ft_ff_util_pop(t_stack *stack, int *i);
 bool	ft_ff_util_is_empty(t_stack *stack);
-void	ft_ff_util_push_8_way(t_stack *stack, int x, int y);
-
+int		ft_flood_fill_one(t_stack *stack, t_map *map, int *dir_x, int *dir_y);
 
 //		ft_utils.c
 int		ft_util_malloc_or_eof(int open_fd);
 int		ft_util_is_whitespace_only(char **line);
 int		ft_util_safe_gnl(char **line, int fd, int mode);
+int		*ft_util_get_dir_y(void);
+int		*ft_util_get_dir_x(void);
 
 // FREE
 

@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 02:59:28 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/22 02:39:27 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/27 23:15:29 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ int	ft_parse1_util_check_valid_rgb(char *line, int *rgb_slots)
 {
 	int	comma_counter;
 	int	i;
-	
+
 	i = 0;
 	comma_counter = 0;
-	ft_printf(LOGS, "[PARSE1_UTIL]: Checking the validity of the RGB argument\n");
 	while (line[i])
 	{
 		if (line[i] == ',')
@@ -48,7 +47,7 @@ int	ft_parse1_util_check_valid_rgb2(char *line, int *rgb_slots)
 {
 	char	**split;
 	int		index;
-	
+
 	index = 0;
 	ft_printf(LOGS, "[PARSE1_UTIL]: Checking correct values for RGB\n");
 	split = ft_split(line, ',');
@@ -73,7 +72,7 @@ int	ft_parse1_util_check_valid_rgb2(char *line, int *rgb_slots)
 }
 
 //This function verifies that a single value is a valid number between 0-255.
-//It increments the index <i> for further use in another call. (Could have been written as static but I like pointers and references more than static calls.)
+//increments the index <i> for further use in another call.
 bool	ft_parse1_util_rgb_atoi(char *nptr, int *int_addr)
 {
 	int	i;
@@ -87,9 +86,8 @@ bool	ft_parse1_util_rgb_atoi(char *nptr, int *int_addr)
 		*int_addr = *int_addr * 10 + (nptr[i] - '0');
 		i++;
 	}
-	if (*int_addr > 255 || (!ft_isdigit(nptr[i]) && nptr[i] != ',' 
-		&& nptr[i] != '\0') || i > 3)
-			return (false);
+	if (*int_addr > 255 || (!ft_isdigit(nptr[i]) && nptr[i] != ','
+			&& nptr[i] != '\0') || i > 3)
+		return (false);
 	return (true);
 }
-

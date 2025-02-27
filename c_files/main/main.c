@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:24:26 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/25 14:41:55 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/02/27 23:04:34 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	int	i = 0;
-	
+	int		i;
+
+	i = 0;
 	ft_printf(LOGSV, "[VERBOSE][PARSE]: Verify single arg: argc == %d\n", argc);
 	if (argc != 2)
 	{
@@ -36,4 +37,3 @@ int	main(int argc, char **argv)
 	ft_printf(2, "No errors found!\n");
 	return (ft_clean_exit(&data), 0);
 }
-

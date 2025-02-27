@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 01:15:57 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/25 00:18:46 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/27 23:22:26 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	ft_parse1_util_which_fc(char *line)
 		ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]: Found Floor\n");
 		return (FLOOR);
 	}
-	else if (line[0] == 'C' && (ft_isdigit(line[1]) || ft_iswhitespace(line[1])))
+	else if (line[0] == 'C' && (ft_isdigit(line[1])
+			|| ft_iswhitespace(line[1])))
 	{
 		ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]: Found Ceiling\n");
 		return (CEILING);
@@ -72,10 +73,9 @@ int	ft_parse1_util_find_xpm(char *p)
 	return (0);
 }
 
-//This function looks for duplicate lines, assigning a texture path to a cardinal line twice.
-int	ft_parse1_util_find_duplicate_xpm(char *line, int num, t_data *data)
+//This function looks for duplicate lines in cardinal lines
+int	ft_parse1_util_find_duplicate_xpm(int num, t_data *data)
 {
-	ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]: Searching for duplicate for %s\n", line);
 	if ((num == NORTH && data->north_txt != NULL)
 		|| (num == SOUTH && data->south_txt != NULL)
 		|| (num == EAST && data->east_txt != NULL)
@@ -88,19 +88,17 @@ int	ft_parse1_util_find_duplicate_xpm(char *line, int num, t_data *data)
 	return (0);
 }
 
-//This function looks for duplicate lines, assigning RGB to floor or ceiling twice.
+//This function looks for duplicate lines for RGB
 int	ft_parse1_util_find_duplicate_rgb(int num, t_data *data)
 {
 	if (num == FLOOR)
 	{
-		ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]: Checking for duplicate floor\n");
 		if (data->floor_rgb->assigned == true)
 			return (ERROR);
 		ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]: No duplicate floor found\n");
 	}
 	else if (num == CEILING)
 	{
-		ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]: Checking for duplicate ceiling\n");
 		if (data->ceiling_rgb->assigned == true)
 			return (ERROR);
 		ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]: No duplicate ceiling found\n");
