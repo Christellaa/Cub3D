@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:38:48 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/26 15:29:37 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/02/27 00:24:28 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,7 @@ int ft_parse_check_file_rules(char **line, int open_fd, t_data *data)
 		}
 		free(*line);
 		*line = NULL;
-		if (num == ERROR)
-			return (get_next_line(open_fd, 1), close(open_fd), ERROR);
-		if (ft_util_safe_gnl(line, open_fd, 0) == ERROR)
+		if (num == ERROR || ft_util_safe_gnl(line, open_fd, 0) == ERROR)
 			return (get_next_line(open_fd, 1), close(open_fd), ERROR);
 	}
 	if (all_cardinals != 6)
@@ -108,24 +106,10 @@ int	ft_parse_check_map_rules(char **line, int open_fd, t_data *data)
 	ft_printf(LOGS, "[PARSE]: Verifying Map Rules %s.\n", *line);
 	ft_printf(LOGSV, "[VERBOSE][PARSE]: Verifying lines have valid chars\n");
 	if (ft_parse3_assign_map_to_data(line, open_fd, data) == ERROR)
-	{
-		close(open_fd);
 		return (ERROR);
-	}
-	// ft_printf(LOGSV, "[VERBOSE][PARSE]: Closing and reopening fd to read map again\n");
-	// close(open_fd);
-	// open_fd = open(data->filename, O_RDONLY);
-	// if (open_fd == -1)
-	// {
-	// 	ft_printf(2, "Error\nCouldn't open file\n");
-	// 	return (ERROR);
-	// }
-	// else if (ft_parse3_flood_fill(open_fd) == ERROR)
-	// {
-	// 	close(open_fd);
-	// 	ft_printf(2, "Error\nMap isn't closed/Found space inside\n");
-	// 	return (ERROR);
-	// }
-	close(open_fd);
+	ft_printf(LOGS, "[PARSE]: Stored map in t_map struct\n");
+	ft_printf(LOGSV, "[VERBOSE][PARSE]: Performing flood_fill algorithm\n");
+	if (ft_parse3_flood_fill(data) == ERROR)
+		return (ERROR);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/26 10:28:51 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/02/27 05:26:52 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ typedef struct s_map
 	char	**map;
 	int		rows;
 	int		columns;
+	bool	p_assigned;
+	int		p_pos_x;
+	int		p_pos_y;
 }t_map;
 
 typedef struct s_pos
@@ -70,6 +73,13 @@ typedef struct s_pos
 	int	x;
 	int	y;
 }t_pos;
+
+typedef struct s_stack
+{
+	t_pos	*pos_data;
+	int		top;
+	int		max_size;
+}t_stack;
 
 typedef struct s_player
 {
@@ -123,6 +133,7 @@ int		ft_parse2_assign_RGB_to_data(t_data *data, int *rgb_values, int num);
 
 //		ft_parse3.c
 int		ft_parse3_assign_map_to_data(char **line, int open_fd, t_data *data);
+int		ft_parse3_flood_fill(t_data *data);
 
 // EXEC
 
@@ -149,6 +160,16 @@ int		ft_parse3_util_is_invalid_line(char **line);
 
 //		ft_parse3_utils_2.c
 int		ft_parse3_util2_initialize_map(char **line, int open_fd, t_data *data);
+int		ft_parse3_util2_single_player(t_data *data);
+int		ft_parse3_util2_is_player(char c, t_map *map, int x, int y);
+int		ft_parse3_util2_check_map_closed(t_map *map);
+int		ft_parse3_util2_perform_ff(t_map *map, t_stack *stack);
+
+//		ft_ff_util.c
+void	ft_ff_util_push(t_stack *stack, int x, int y);
+t_pos	ft_ff_util_pop(t_stack *stack);
+bool	ft_ff_util_is_empty(t_stack *stack);
+void	ft_ff_util_push_8_way(t_stack *stack, int x, int y);
 
 
 //		ft_utils.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:47:28 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/25 13:56:39 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/02/27 02:14:38 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ void	ft_init_map(t_map *map)
 	map->map = NULL;
 	map->columns = 0;
 	map->rows = 0;
+	map->p_assigned = false;
+	map->p_pos_x = -42;
+	map->p_pos_y = -42;
 }
 
 void	ft_init_data_params(t_data *data)

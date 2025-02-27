@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 01:16:11 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/25 07:25:31 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/27 02:24:50 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	ft_parse3_assign_map_to_data(char **line, int open_fd, t_data *data)
 	*line = NULL;
 	ft_printf(LOGSV, "[VERBOSE][PARSE3]: Skipping back to map lines for assignation\n");
 	if (ft_parse3_util_skip_to_map(line, open_fd) == ERROR)
-		return (ERROR);
+		return (close(open_fd), ERROR);
 	if (ft_parse3_util2_initialize_map(line, open_fd, data) == ERROR)
-		return (ERROR);
+		return (close(open_fd), ERROR);
 	while (*line && !ft_util_is_whitespace_only(line))
 	{
 		if (ft_util_safe_gnl(line, open_fd, 0) == ERROR)
@@ -47,4 +47,14 @@ int	ft_parse3_assign_map_to_data(char **line, int open_fd, t_data *data)
 		return (ft_printf(2, "Error\nFound duplicate map\n"), ERROR);
 	}
 	return (get_next_line(open_fd, 1), close(open_fd), free(*line), 0);
+}
+
+int	ft_parse3_flood_fill(t_data *data)
+{
+	ft_printf(LOGS, "[PARSE3]: Checking singular player\n");
+	if (ft_parse3_util2_single_player(data) == ERROR)
+		return (ERROR);
+	if (ft_parse3_util2_check_map_closed(data->map) == ERROR)
+		return (ERROR);
+	return (0);
 }
