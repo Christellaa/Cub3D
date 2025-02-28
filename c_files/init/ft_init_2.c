@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 00:34:12 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/28 00:57:25 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/28 15:59:40 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,19 @@ int	ft_init_mlx(t_mlx *mlx)
 		return (ERROR);
 	mlx->buf = (int *)mlx_get_data_addr(mlx->img_ptr,
 			&mlx->bpp, &mlx->s_l, &mlx->e);
+	return (0);
+}
+
+int ft_init_minimap(t_data *data)
+{
+	data->minimap->map = data->map;
+	data->minimap->img_ptr = mlx_new_image(data->mlx->mlx, data->mlx->width,
+		data->mlx->height);
+	if (!data->minimap->img_ptr)
+		return (ERROR);
+	data->minimap->buf = (int *)mlx_get_data_addr(data->minimap->img_ptr,
+	&data->minimap->bpp, &data->minimap->s_l, &data->minimap->e);
+	data->minimap->tile_size = 32;
+	data->minimap->margin = 1;
 	return (0);
 }

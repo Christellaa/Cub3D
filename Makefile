@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+         #
+#    By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/20 23:13:34 by ilevy             #+#    #+#              #
-#    Updated: 2025/02/28 01:30:11 by ilevy            ###   ########.fr        #
+#    Updated: 2025/02/28 20:08:23 by cde-sous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program name:
 
-NAME:= cube3D
-NAME_BONUS:= cube4D
+NAME:= cub3D
+NAME_BONUS:= cub4D
 
 # CC and CFLAGS:
 CC:= cc
@@ -43,7 +43,7 @@ FREE_DIR:= free/
 FREE:= ft_free.c
 
 EXEC_DIR:= exec/
-EXEC:=
+EXEC:= ft_window.c
 
 MAIN_DIR:= main/
 MAIN:= main.c

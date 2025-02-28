@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/28 03:48:53 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/28 20:07:24 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,15 @@
 # define FLOOR 4
 # define CEILING 5
 
-# define WIDTH 800
-# define HEIGHT 620
+# define WIDTH 1200
+# define HEIGHT 800
 
 # define USAGE "Error\nWrong args number.\nUsage: cub3D [map_file.cub]\n"
 # define FILE_FORMAT "Error\nInvalid file format\nUsage: cub3D [map_file.cub]\n"
 # define FILE_DIR "Error\nCouldn't open file: is a directory\n"
+
+# define PI 3.1415926535
+# define ANGLE_INCREMENT (PI / 30)
 
 // ------------TYPEDEF--------------
 
@@ -110,6 +113,18 @@ typedef struct s_mlx
 	int		*buf;
 }t_mlx;
 
+typedef struct s_minimap
+{
+	t_map *map;
+	void *img_ptr;
+	int bpp;
+	int s_l;
+	int e;
+	int *buf;
+	int tile_size;
+	int margin;
+}t_minimap;
+
 typedef struct s_data
 {
 	char		*filename;
@@ -128,6 +143,7 @@ typedef struct s_data
 	t_map		*map;
 
 	t_mlx		*mlx;
+	t_minimap	*minimap;
 }t_data;
 
 // ------------DECLARE--------------
@@ -143,6 +159,7 @@ void	ft_init_data_params(t_data *data);
 
 //		ft_init_2.c
 int		ft_init_mlx(t_mlx *mlx);
+int 	ft_init_minimap(t_data *data);
 
 // PARSING
 
@@ -167,7 +184,8 @@ int		ft_parse3_assign_map_to_data(char **line, int open_fd, t_data *data);
 int		ft_parse3_flood_fill(t_data *data);
 
 // EXEC
-
+void put_pixel(t_data *data, int x, int y, int color);
+void render_map2D(t_minimap *minimap, t_data *data);
 // UTILS
 
 //		ft_parse1_utils.c

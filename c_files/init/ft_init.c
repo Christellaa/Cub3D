@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:47:28 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/28 03:49:36 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/28 15:25:23 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,19 @@ int	ft_init_data(t_data *data)
 	data->player = (t_player *)malloc(1 * sizeof(t_player));
 	data->map = (t_map *)malloc(1 * sizeof(t_map));
 	data->mlx = (t_mlx *)malloc(1 * sizeof(t_mlx));
+	data->minimap = (t_minimap *)malloc(1 * sizeof(t_minimap));
 	if (!data->ceiling_rgb || !data->floor_rgb || !data->player || !data->map
 		|| !data->mlx)
 	{
 		if (data->map)
 			data->map->map = NULL;
-		return (ft_printf(2, "Error\n Malloc error during init\n"), ERROR);
+		return (ft_printf(2, "Error\nMalloc error during init\n"), ERROR);
 	}
 	if (ft_init_mlx(data->mlx) == ERROR)
-		return (ft_printf(2, "Error\n Malloc error during mlx init\n"), ERROR);
+		return (ft_printf(2, "Error\nMalloc error during mlx init\n"), ERROR);
+	if (ft_init_minimap(data) == ERROR)
+		return (ft_printf(2, "Error\nMalloc error during minimap init\n"),
+		ERROR);
 	ft_init_map(data->map);
 	ft_init_player(data->player);
 	ft_init_rgbs(data->ceiling_rgb, data->floor_rgb);
