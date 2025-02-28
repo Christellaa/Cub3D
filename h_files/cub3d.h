@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/27 23:22:34 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/28 01:57:10 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@
 # define FLOOR 4
 # define CEILING 5
 
-# define MAX_LINE_LEN 1024
+# define WIDTH 1920
+# define HEIGHT 1080
 
 # define USAGE "Error\nWrong args number.\nUsage: cub3D [map_file.cub]\n"
 # define FILE_FORMAT "Error\nInvalid file format\nUsage: cub3D [map_file.cub]\n"
@@ -83,8 +84,24 @@ typedef struct s_stack
 
 typedef struct s_player
 {
-	t_pos	pos;
+	double	pos_x;
+	double	pos_y;
 }t_player;
+
+typedef struct s_mlx
+{
+	void	*mlx;
+
+	void	*win;
+	char	*name;
+	int		width;
+	int		height;
+	void	*img_ptr;
+	int		bpp;
+	int		s_l;
+	int		e;
+	int		*buf;
+}t_mlx;
 
 typedef struct s_data
 {
@@ -100,6 +117,8 @@ typedef struct s_data
 	t_player	*player;
 
 	t_map		*map;
+
+	t_mlx		*mlx;
 }t_data;
 
 // ------------DECLARE--------------
@@ -112,6 +131,9 @@ void	ft_init_rgbs(t_rgb *ceiling, t_rgb *floor);
 void	ft_init_player(t_player *player);
 void	ft_init_map(t_map *map);
 void	ft_init_data_params(t_data *data);
+
+//		ft_init_2.c
+int		ft_init_mlx(t_mlx *mlx);
 
 // PARSING
 
@@ -178,11 +200,17 @@ int		ft_util_safe_gnl(char **line, int fd, int mode);
 int		*ft_util_get_dir_y(void);
 int		*ft_util_get_dir_x(void);
 
+//		ft_hooks.c
+int		ft_cross(t_data *data);
+int		ft_key_handler(int keycode, t_data *data);
+
+
 // FREE
 
 //		ft_free.c
 void	ft_free_tab(char **split);
-void	ft_clean_exit(t_data *data);
+void	ft_clean_exit(t_data *data, int errcode);
+void	ft_free_mlx(t_data *data);
 
 // MAIN
 #endif

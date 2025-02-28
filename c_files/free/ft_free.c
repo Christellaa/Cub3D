@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 00:09:00 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/25 06:20:33 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/28 01:56:01 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ void	ft_free_tab(char **split)
 	free(split);
 }
 
-void	ft_clean_exit(t_data *data)
+void	ft_clean_exit(t_data *data, int errcode)
 {
+	if (data->mlx)
+		ft_free_mlx(data);
 	if (data->filename)
 		free(data->filename);
 	if (data->east_txt)
@@ -51,4 +53,22 @@ void	ft_clean_exit(t_data *data)
 			ft_free_tab(data->map->map);
 		free(data->map);
 	}
+	exit(errcode);
+}
+
+void	ft_free_mlx(t_data *data)
+{
+	if (data->mlx->img_ptr && data->mlx->mlx)
+		mlx_destroy_image(data->mlx->mlx, data->mlx->img_ptr);
+	if (data->mlx->win && data->mlx->mlx)
+		mlx_destroy_window(data->mlx->mlx, data->mlx->win);
+	if (data->mlx->name)
+		free(data->mlx->name);
+	if (data->mlx->mlx)
+	{
+		mlx_destroy_display(data->mlx->mlx);
+		free(data->mlx->mlx);
+	}
+	free(data->mlx);
+	data->mlx = NULL;
 }

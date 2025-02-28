@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:47:28 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/27 02:14:38 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/28 01:58:42 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,16 @@ int	ft_init_data(t_data *data)
 	data->floor_rgb = (t_rgb *)malloc(1 * sizeof(t_rgb));
 	data->player = (t_player *)malloc(1 * sizeof(t_player));
 	data->map = (t_map *)malloc(1 * sizeof(t_map));
-	if (!data->ceiling_rgb || !data->floor_rgb || !data->player || !data->map)
+	data->mlx = (t_mlx *)malloc(1 * sizeof(t_mlx));
+	if (!data->ceiling_rgb || !data->floor_rgb || !data->player || !data->map
+		|| !data->mlx)
 	{
 		if (data->map)
 			data->map->map = NULL;
 		return (ft_printf(2, "Error\n Malloc error during init\n"), ERROR);
 	}
+	if (ft_init_mlx(data->mlx) == ERROR)
+		return (ft_printf(2, "Error\n Malloc error during mlx init\n"), ERROR);
 	ft_init_map(data->map);
 	ft_init_player(data->player);
 	ft_init_rgbs(data->ceiling_rgb, data->floor_rgb);
@@ -45,8 +49,8 @@ void	ft_init_rgbs(t_rgb *ceiling, t_rgb *floor)
 
 void	ft_init_player(t_player *player)
 {
-	player->pos.x = 0;
-	player->pos.y = 0;
+	player->pos_x = 0;
+	player->pos_y = 0;
 }
 
 void	ft_init_map(t_map *map)

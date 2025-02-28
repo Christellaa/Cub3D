@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:24:26 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/27 23:04:34 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/28 01:59:06 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,18 @@ int	main(int argc, char **argv)
 		return (ERROR);
 	}
 	if (ft_init_data(&data) == ERROR)
-		return (ft_clean_exit(&data), ERROR);
+		ft_clean_exit(&data, ERROR);
 	if (ft_parse(argv, &data) == ERROR)
-		return (ft_clean_exit(&data), ERROR);
+		ft_clean_exit(&data, ERROR);
 	ft_printf(2, "Map is:\n");
 	while (data.map->map[i])
 	{
 		ft_printf(2, "%s\n", data.map->map[i]);
 		i++;
 	}
-	ft_printf(2, "No errors found!\n");
-	return (ft_clean_exit(&data), 0);
+	mlx_hook(data.mlx->win, KeyPress, KeyPressMask, ft_key_handler, &data);
+	mlx_hook(data.mlx->win, DestroyNotify, StructureNotifyMask,
+		ft_cross, &data);
+	mlx_loop(data.mlx->mlx);
+	ft_clean_exit(&data, 0);
 }
