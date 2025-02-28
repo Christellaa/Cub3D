@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 01:46:34 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/27 23:37:45 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/28 03:09:18 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int	ft_flood_fill_one(t_stack *stack, t_map *map, int *dir_x, int *dir_y)
 		return (ft_printf(2, "Error\nInvalid map\n"), ERROR);
 	if (map->map[c.y][c.x] != '0' && !ft_p3_isp(map->map[c.y][c.x], map, 0, 0))
 		return (0);
-	map->map[c.y][c.x] = '2';
+	if (map->map[c.y][c.x] == '0')
+		map->map[c.y][c.x] = '2';
 	while (i < 8)
 	{
 		new_x = c.x + dir_x[i];

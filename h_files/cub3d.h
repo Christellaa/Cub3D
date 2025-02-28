@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/28 01:57:10 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/28 03:48:53 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 // Macros controlling the display of logs during program execution.
 // Set LOGS to 2 for simple LOGS, LOGSV to 2 for verbose (With more details).
 // Set LOGS and LOGSV to -1 to hide logs
-# define LOGS 2
-# define LOGSV 2
+# define LOGS -1
+# define LOGSV -1
 
 # define ERROR -1
 
@@ -42,8 +42,8 @@
 # define FLOOR 4
 # define CEILING 5
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 800
+# define HEIGHT 620
 
 # define USAGE "Error\nWrong args number.\nUsage: cub3D [map_file.cub]\n"
 # define FILE_FORMAT "Error\nInvalid file format\nUsage: cub3D [map_file.cub]\n"
@@ -61,12 +61,12 @@ typedef struct s_rgb
 
 typedef struct s_map
 {
-	char	**map;
-	int		rows;
-	int		columns;
-	bool	p_assigned;
-	int		p_pos_x;
-	int		p_pos_y;
+	char		**map;
+	int			rows;
+	int			columns;
+	bool		p_assigned;
+	int			map_x;
+	int			map_y;
 }t_map;
 
 typedef struct s_pos
@@ -86,6 +86,13 @@ typedef struct s_player
 {
 	double	pos_x;
 	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
 }t_player;
 
 typedef struct s_mlx
@@ -110,7 +117,9 @@ typedef struct s_data
 	char		*south_txt;
 	char		*east_txt;
 	char		*west_txt;
-
+	double		time;
+	double		old_time;
+	
 	t_rgb		*floor_rgb;
 	t_rgb		*ceiling_rgb;
 

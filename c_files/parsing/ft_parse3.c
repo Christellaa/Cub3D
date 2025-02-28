@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 01:16:11 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/27 23:03:03 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/28 03:48:19 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ int	ft_parse3_flood_fill(t_data *data)
 		return (ERROR);
 	if (ft_parse3_util2_check_map_closed(data->map) == ERROR)
 		return (ERROR);
+	data->player->pos_x = (double)data->map->map_x;
+	data->player->pos_y = (double)data->map->map_y;
 	return (0);
 }

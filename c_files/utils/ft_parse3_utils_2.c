@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 06:13:05 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/27 23:19:52 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/28 03:48:19 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	ft_p3_isp(char c, t_map *map, int x, int y)
 	{
 		if (map->p_assigned == false)
 		{
-			map->p_pos_y = y;
-			map->p_pos_x = x;
+			map->map_y = y;
+			map->map_x = x;
 			map->p_assigned = true;
 		}
 		return (1);
@@ -100,7 +100,7 @@ int	ft_parse3_util2_check_map_closed(t_map *map)
 	stack.pos_data = (t_pos *)malloc(sizeof(t_pos) * (stack.max_size));
 	if (!stack.pos_data)
 		return (ft_printf(2, "Error\nMalloc failure in flood fill\n"), ERROR);
-	ft_ff_util_push(&stack, map->p_pos_x, map->p_pos_y);
+	ft_ff_util_push(&stack, map->map_x, map->map_y);
 	dir_x = ft_util_get_dir_x();
 	dir_y = ft_util_get_dir_y();
 	if (!dir_y || !dir_x)

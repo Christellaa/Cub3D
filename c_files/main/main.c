@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:24:26 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/28 01:59:06 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/28 03:45:20 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv)
 		ft_printf(2, "%s\n", data.map->map[i]);
 		i++;
 	}
+	printf("The player is at %f %f\n", data.player->pos_x, data.player->pos_y);
 	mlx_hook(data.mlx->win, KeyPress, KeyPressMask, ft_key_handler, &data);
 	mlx_hook(data.mlx->win, DestroyNotify, StructureNotifyMask,
 		ft_cross, &data);

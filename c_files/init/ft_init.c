@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:47:28 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/28 01:58:42 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/28 03:49:36 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ void	ft_init_player(t_player *player)
 {
 	player->pos_x = 0;
 	player->pos_y = 0;
+	player->dir_x = -1;
+	player->dir_y = 0;
+	player->plane_x = 0;
+	player->plane_y = 0.66;
+	player->camera_x = 0;
+	player->ray_dir_x = 0;
+	player->ray_dir_y = 0;
 }
 
 void	ft_init_map(t_map *map)
@@ -59,8 +66,8 @@ void	ft_init_map(t_map *map)
 	map->columns = 0;
 	map->rows = 0;
 	map->p_assigned = false;
-	map->p_pos_x = -42;
-	map->p_pos_y = -42;
+	map->map_x = -42;
+	map->map_y = -42;
 }
 
 void	ft_init_data_params(t_data *data)
@@ -70,4 +77,6 @@ void	ft_init_data_params(t_data *data)
 	data->south_txt = NULL;
 	data->west_txt = NULL;
 	data->east_txt = NULL;
+	data->time = 0;
+	data->old_time = 0;
 }

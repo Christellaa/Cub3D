@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:38:48 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/27 23:14:28 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/02/28 03:35:20 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	ft_parse(char **argv, t_data *data)
 // Function tested. Written to norm (without LOGSV).
 int	ft_parse_check_file_path(char **argv, t_data *data)
 {
-	int	index;
-	int	open_fd;
+	size_t	index;
+	int		open_fd;
 
 	ft_printf(LOGS, "[PARSE]: Verifying argument validity\n");
 	ft_printf(LOGSV, "[VERBOSE][PARSE]: Verifying .cub suffix:%s\n", argv[1]);
