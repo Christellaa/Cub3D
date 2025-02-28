@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 01:27:14 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/28 20:10:00 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/02/28 20:17:44 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void move_player(t_data *data, int x, int y)
 
 #define LINE_LEN 500  // Length of the line to draw
 
-int ray_hits_wall(t_minimap *minimap, int x, int y)
+int ray_hits_wall(t_minimap *minimap, int y, int x)
 {
-	if (minimap->map->map[x][y] == '1')
+	if (minimap->map->map[y][x] == '1')
 		return (1);
 	return (0);
 }
