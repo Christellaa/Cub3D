@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/28 20:07:24 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/03 08:28:58 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,34 @@ typedef struct s_player
 {
 	double	pos_x;
 	double	pos_y;
+
 	double	dir_x;
 	double	dir_y;
+
 	double	plane_x;
 	double	plane_y;
+
 	double	camera_x;
+
 	double	ray_dir_x;
 	double	ray_dir_y;
+
+	double	side_dist_x;
+	double	side_dist_y;
+
+	double	delta_dist_x;
+	double	delta_dist_y;
+
+	double	perp_wall_dist;
+
+	int		step_x;
+	int		step_y;
+
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+
+	int		color;
 }t_player;
 
 typedef struct s_mlx
@@ -134,7 +155,7 @@ typedef struct s_data
 	char		*west_txt;
 	double		time;
 	double		old_time;
-	
+
 	t_rgb		*floor_rgb;
 	t_rgb		*ceiling_rgb;
 
@@ -160,6 +181,7 @@ void	ft_init_data_params(t_data *data);
 //		ft_init_2.c
 int		ft_init_mlx(t_mlx *mlx);
 int 	ft_init_minimap(t_data *data);
+void	ft_reinit_2_all(t_player *p, t_map *m, int x);
 
 // PARSING
 
@@ -184,8 +206,16 @@ int		ft_parse3_assign_map_to_data(char **line, int open_fd, t_data *data);
 int		ft_parse3_flood_fill(t_data *data);
 
 // EXEC
-void put_pixel(t_data *data, int x, int y, int color);
-void render_map2D(t_minimap *minimap, t_data *data);
+
+//		ft_try_raycaster.c
+int		ft_raycaster(t_data *data);
+void	ft_fuck_norminette(t_player *p, t_map *m);
+void	ft_digital_differential_analyzer(t_player *p, t_map *m, int hit, int *side);
+void	ft_calculate_line_height(t_player *p);
+void	ft_draw_vertical(int x, t_player *p, t_data *data);
+
+void	put_pixel(t_data *data, int x, int y, int color);
+void	render_map2D(t_minimap *minimap, t_data *data);
 // UTILS
 
 //		ft_parse1_utils.c
@@ -238,6 +268,7 @@ int		ft_key_handler(int keycode, t_data *data);
 void	ft_free_tab(char **split);
 void	ft_clean_exit(t_data *data, int errcode);
 void	ft_free_mlx(t_data *data);
+void	ft_free_minimap(t_minimap *mm, t_data *data);
 
 // MAIN
 #endif

@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 00:09:00 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/28 01:56:01 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/03 08:30:45 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	ft_free_tab(char **split)
 
 void	ft_clean_exit(t_data *data, int errcode)
 {
+	if (data->minimap)
+		ft_free_minimap(data->minimap, data);
 	if (data->mlx)
 		ft_free_mlx(data);
 	if (data->filename)
@@ -71,4 +73,12 @@ void	ft_free_mlx(t_data *data)
 	}
 	free(data->mlx);
 	data->mlx = NULL;
+}
+
+void	ft_free_minimap(t_minimap *mm, t_data *data)
+{
+	if (mm->img_ptr && data->mlx->mlx)
+		mlx_destroy_image(data->mlx->mlx, mm->img_ptr);
+	free(mm);
+	mm = NULL;
 }

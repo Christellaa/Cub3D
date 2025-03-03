@@ -43,7 +43,7 @@ FREE_DIR:= free/
 FREE:= ft_free.c
 
 EXEC_DIR:= exec/
-EXEC:= ft_window.c
+EXEC:= ft_window.c ft_try_raycaster.c
 
 MAIN_DIR:= main/
 MAIN:= main.c

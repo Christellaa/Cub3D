@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 00:34:12 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/28 15:59:40 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/03 07:24:21 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,16 @@ int ft_init_minimap(t_data *data)
 	data->minimap->tile_size = 32;
 	data->minimap->margin = 1;
 	return (0);
+}
+
+void	ft_reinit_2_all(t_player *p, t_map *m, int x)
+{
+	p->camera_x = 2 * x / (double) WIDTH - 1;
+	p->ray_dir_x = p->dir_x + p->plane_x * p->camera_x;
+	p->ray_dir_y = p->dir_y + p->plane_y * p->camera_x;
+	m->map_x = (int)p->pos_x;
+	m->map_y = (int)p->pos_y;
+	p->delta_dist_x = (p->ray_dir_x == 0) ? 1e30 : fabs(1 / p->ray_dir_x);
+	p->delta_dist_y = (p->ray_dir_y == 0) ? 1e30 : fabs(1 / p->ray_dir_y);
+	ft_fuck_norminette(p, m);
 }
