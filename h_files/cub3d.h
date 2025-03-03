@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/03 08:28:58 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/03 09:39:12 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,12 @@ typedef struct s_player
 
 	double	dir_x;
 	double	dir_y;
+	double	old_dir_x;
 
 	double	plane_x;
 	double	plane_y;
-
+	double	old_plane_x;
+	
 	double	camera_x;
 
 	double	ray_dir_x;
@@ -117,6 +119,7 @@ typedef struct s_player
 	int		draw_end;
 
 	int		color;
+
 }t_player;
 
 typedef struct s_mlx
@@ -131,7 +134,7 @@ typedef struct s_mlx
 	int		bpp;
 	int		s_l;
 	int		e;
-	int		*buf;
+	char	*buf;
 }t_mlx;
 
 typedef struct s_minimap
@@ -210,9 +213,10 @@ int		ft_parse3_flood_fill(t_data *data);
 //		ft_try_raycaster.c
 int		ft_raycaster(t_data *data);
 void	ft_fuck_norminette(t_player *p, t_map *m);
-void	ft_digital_differential_analyzer(t_player *p, t_map *m, int hit, int *side);
+void	ft_digital_differential_analyzer(t_player *p, t_map *m, int *hit, int *side);
 void	ft_calculate_line_height(t_player *p);
 void	ft_draw_vertical(int x, t_player *p, t_data *data);
+void	ft_put_pixel(t_data *data, int x, int y, int color);
 
 void	put_pixel(t_data *data, int x, int y, int color);
 void	render_map2D(t_minimap *minimap, t_data *data);

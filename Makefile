@@ -80,6 +80,9 @@ $(O_DIR_SUBS): $(O_DIR)
 	mkdir -p $(O_DIR_SUBS)
 
 $(O_DIR):
+	@wget https://cdn.intra.42.fr/document/document/26097/minilibx-linux.tgz
+	@tar -xpf minilibx-linux.tgz
+	@rm -rf minilibx-linux.tgz
 	mkdir -p $(O_DIR)
 
 clean:

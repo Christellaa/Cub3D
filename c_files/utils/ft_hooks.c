@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 01:27:14 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/28 20:17:44 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/03 09:47:27 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,22 +98,42 @@ int	ft_key_handler(int keycode, t_data *data)
 	if (keycode == XK_Escape)
 		ft_clean_exit(data, 0);
 	else if (keycode == XK_w)
-		move_player(data, 0, -1);
+	{
+		if (data->map->map[(int)data->player->pos_y][(int)(data->player->pos_x + data->player->dir_x * 0.2)] != '1')
+			data->player->pos_x += data->player->dir_x * 0.2;
+	}
 	else if (keycode == XK_a)
-		move_player(data, -1, 0);
+	{
+		if (data->map->map[(int)(data->player->pos_y)][(int)(data->player->pos_x - data->player->dir_y * 0.2)] != '1')
+			data->player->pos_x -= data->player->dir_y * 0.2;
+	}
 	else if (keycode == XK_s)
-		move_player(data, 0, 1);
+	{
+		if (data->map->map[(int)(data->player->pos_y + data->player->dir_y * 0.2)][(int)data->player->pos_x] != '1')
+			data->player->pos_y += data->player->dir_y * 0.2;
+	}
 	else if (keycode == XK_d)
-		move_player(data, 1, 0);
+	{
+		if (data->map->map[(int)(data->player->pos_y)][(int)(data->player->pos_x + data->player->dir_y * 0.2)] != '1')
+			data->player->pos_x += data->player->dir_y * 0.2;
+	}
 	if (keycode == XK_Left)
 	{
-		data->player->camera_x -= ANGLE_INCREMENT;
-		rotate_angle(data, -ANGLE_INCREMENT);
+		data->player->old_dir_x = data->player->dir_x;
+		data->player->dir_x = data->player->dir_x * cos(0.2) - data->player->dir_y * sin(0.2);
+		data->player->dir_y = data->player->dir_x * sin(0.2) + data->player->dir_y * cos(0.2);
+		data->player->old_plane_x = data->player->plane_x;
+		data->player->plane_x = data->player->plane_x * cos(0.2) - data->player->plane_y * sin(0.2);
+		data->player->plane_y = data->player->old_plane_x * sin(0.2) + data->player->plane_y * cos(0.2);
 	}
 	else if (keycode == XK_Right)
 	{
-		data->player->camera_x += ANGLE_INCREMENT;
-		rotate_angle(data, ANGLE_INCREMENT);
+		data->player->old_dir_x = data->player->dir_x;
+		data->player->dir_x = data->player->dir_x * cos(-0.2) - data->player->dir_y * sin(-0.2);
+		data->player->dir_y = data->player->dir_x * sin(-0.2) + data->player->dir_y * cos(-0.2);
+		data->player->old_plane_x = data->player->plane_x;
+		data->player->plane_x = data->player->plane_x * cos(-0.2) - data->player->plane_y * sin(-0.2);
+		data->player->plane_y = data->player->old_plane_x * sin(-0.2) + data->player->plane_y * cos(-0.2);
 	}
 	return (0);
 }

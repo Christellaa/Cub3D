@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 00:34:12 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/03 07:24:21 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/03 10:00:56 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_init_mlx(t_mlx *mlx)
 			mlx->height);
 	if (!mlx->img_ptr)
 		return (ERROR);
-	mlx->buf = (int *)mlx_get_data_addr(mlx->img_ptr,
+	mlx->buf = mlx_get_data_addr(mlx->img_ptr,
 			&mlx->bpp, &mlx->s_l, &mlx->e);
 	return (0);
 }
