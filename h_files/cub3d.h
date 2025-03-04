@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/04 02:23:03 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/04 08:51:14 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct s_player
 	double	plane_x;
 	double	plane_y;
 	double	old_plane_x;
-	
+
 	double	camera_x;
 
 	double	ray_dir_x;
@@ -108,6 +108,8 @@ typedef struct s_player
 
 	double	delta_dist_x;
 	double	delta_dist_y;
+
+	double	wall_x;
 
 	double	perp_wall_dist;
 
@@ -143,6 +145,10 @@ typedef struct s_texture
 	int		width;
 	int		height;
 	void	*img;
+	char	*addr;
+	int		bpp;
+	int		s_l;
+	int		e;
 }t_texture;
 
 
@@ -224,8 +230,10 @@ int		ft_raycaster(t_data *data);
 void	ft_fuck_norminette(t_player *p, t_map *m);
 void	ft_digital_differential_analyzer(t_player *p, t_map *m, int *hit, int *side);
 void	ft_calculate_line_height(t_player *p);
-void	ft_draw_vertical(int x, t_player *p, t_data *data);
+void	ft_draw_vertical(int x, t_player *p, t_data *data, int *side);
 void	ft_put_pixel(t_data *data, int x, int y, int color);
+int		ft_get_txt_pixel(t_texture *txt, int x, int y);
+t_texture	*ft_get_texture(t_player *p, t_data *data, int *side);
 
 void	put_pixel(t_data *data, int x, int y, int color);
 void	render_map2D(t_minimap *minimap, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 07:09:29 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/04 02:19:25 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/04 08:56:50 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,11 @@ int	ft_raycaster(t_data *data)
 
 		ft_calculate_line_height(data->player);
 		if (side == 0)
-		{
-			if (data->player->step_x > 0)
-				data->player->color = 0xFF0000;
-			else
-				data->player->color = 0x00FF00;
-		}
+			data->player->wall_x = data->player->pos_y + data->player->perp_wall_dist * data->player->ray_dir_y;
 		else
-		{
-			if (data->player->step_y > 0)
-				data->player->color = 0x0000FF;
-			else
-				data->player->color = 0xFFFF00;
-		}
-		ft_draw_vertical(x, data->player, data);
+			data->player->wall_x = data->player->pos_x + data->player->perp_wall_dist * data->player->ray_dir_x;
+		data->player->wall_x -= floor(data->player->wall_x);
+		ft_draw_vertical(x, data->player, data, &side);
 		x++;
 	}
 	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, data->mlx->img_ptr, 0, 0);
@@ -115,17 +106,42 @@ void	ft_calculate_line_height(t_player *p)
 		p->draw_end = HEIGHT - 1;
 }
 
-void	ft_draw_vertical(int x, t_player *p, t_data *data)
+void	ft_draw_vertical(int x, t_player *p, t_data *data, int *side)
 {
 	int	y;
-	int	tex_y;
-	int	tex_x;
+	int	txt_y;
+	int	txt_x;
+	t_texture	*texture;
 
 	y = p->draw_start;
+	texture = ft_get_texture(p, data, side);
+	txt_x = (int)(p->wall_x * texture->width);
+	if ((*side == 0 && p->ray_dir_x > 0) || (*side == 1 && p->ray_dir_y < 0))
+		txt_x = texture->width - txt_x - 1;
 	while (y < p->draw_end)
 	{
+		txt_y = ((y - p->draw_start) * texture->height) / (p->draw_end - p->draw_start);
+		p->color = ft_get_txt_pixel(texture, txt_x, txt_y);
 		ft_put_pixel(data, x, y, p->color);
 		y++;
+	}
+}
+
+t_texture	*ft_get_texture(t_player *p, t_data *data, int *side)
+{
+	if (side == 0)
+	{
+		if (p->ray_dir_x > 0)
+			return (data->east_txt);
+		else
+			return (data->west_txt);
+	}
+	else
+	{
+		if (p->ray_dir_y > 0)
+			return (data->south_txt);
+		else
+			return (data->north_txt);
 	}
 }
 
@@ -137,4 +153,16 @@ void	ft_put_pixel(t_data *data, int x, int y, int color)
 		return ;
 	dst = data->mlx->buf + (y * data->mlx->s_l + x * (data->mlx->bpp / 8));
 	*(unsigned int *)dst = color;
+}
+
+int	ft_get_txt_pixel(t_texture *txt, int x, int y)
+{
+	char	*pixel;
+	int		color;
+
+	if (x < 0 || x >= txt->width || y < 0 || y >= txt->height)
+		return (0);
+	pixel = txt->addr + (y * txt->s_l + x * (txt->bpp / 8));
+	color = *(unsigned int *)pixel;
+	return (color);
 }
