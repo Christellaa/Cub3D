@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 07:09:29 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/03 09:57:17 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/04 02:19:25 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ int	ft_raycaster(t_data *data)
 
 	side = 0;
 	x = 0;
+	if (data->mlx->buf)
+		ft_memset(data->mlx->buf, 0, data->mlx->s_l * HEIGHT);
+	mlx_clear_window(data->mlx->mlx, data->mlx->win);
 	while (x < WIDTH)
 	{
 		ft_reinit_2_all(data->player, data->map, x);
@@ -115,6 +118,8 @@ void	ft_calculate_line_height(t_player *p)
 void	ft_draw_vertical(int x, t_player *p, t_data *data)
 {
 	int	y;
+	int	tex_y;
+	int	tex_x;
 
 	y = p->draw_start;
 	while (y < p->draw_end)

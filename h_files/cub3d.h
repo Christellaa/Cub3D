@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/03 09:39:12 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/04 02:23:03 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,15 @@ typedef struct s_mlx
 	char	*buf;
 }t_mlx;
 
+typedef struct s_texture
+{
+	char	*path_to_xpm;
+	int		width;
+	int		height;
+	void	*img;
+}t_texture;
+
+
 typedef struct s_minimap
 {
 	t_map *map;
@@ -152,10 +161,10 @@ typedef struct s_minimap
 typedef struct s_data
 {
 	char		*filename;
-	char		*north_txt;
-	char		*south_txt;
-	char		*east_txt;
-	char		*west_txt;
+	t_texture	*north_txt;
+	t_texture	*south_txt;
+	t_texture	*east_txt;
+	t_texture	*west_txt;
 	double		time;
 	double		old_time;
 

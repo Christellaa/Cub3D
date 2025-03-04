@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 01:38:51 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/27 23:07:51 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/04 02:31:07 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,43 @@ int	ft_parse2_assign_texture_to_data(char *path, int num, t_data *data)
 {
 	if (num == NORTH)
 	{
-		data->north_txt = ft_strdup(path);
-		ft_printf(LOGS, "[PARSE2]: Assigned %s to north_txt\n", data->north_txt);
+		data->north_txt = (t_texture *)malloc(sizeof(t_texture));
+		if (!data->north_txt)
+			return (ft_printf(2, "Error\nMalloc failure in parsing\n"), ERROR);
+		data->north_txt->path_to_xpm = ft_strdup(path);
+		data->north_txt->img = mlx_xpm_file_to_image(data->mlx->mlx, data->north_txt, &data->north_txt->width, &data->north_txt->height);
+		if (!data->north_txt->img)
+			return(ft_printf(2, "Error\nTexture loading failure\n"), ERROR);
 	}
 	else if (num == SOUTH)
 	{
-		data->south_txt = strdup(path);
-		ft_printf(LOGS, "[PARSE2]: Assigned %s to south_txt\n", data->south_txt);
+		data->south_txt = (t_texture *)malloc(sizeof(t_texture));
+		if (!data->south_txt)
+			return (ft_printf(2, "Error\nMalloc failure in parsing\n"), ERROR);
+		data->south_txt->path_to_xpm = strdup(path);
+		data->south_txt->img = mlx_xpm_file_to_image(data->mlx->mlx, data->south_txt, &data->south_txt->width, &data->south_txt->height);
+		if (!data->south_txt->img)
+			return(ft_printf(2, "Error\nTexture loading failure\n"), ERROR);
 	}
 	else if (num == EAST)
 	{
+		data->east_txt = (t_texture *)malloc(sizeof(t_texture));
+		if (!data->east_txt)
+			return (ft_printf(2, "Error\nMalloc failure in parsing\n"), ERROR);
 		data->east_txt = strdup(path);
-		ft_printf(LOGS, "[PARSE2]: Assigned %s to east_txt\n", data->east_txt);
+		data->east_txt->img = mlx_xpm_file_to_image(data->mlx->mlx, data->east_txt, &data->east_txt->width, &data->east_txt->height);
+		if (!data->east_txt->img)
+			return(ft_printf(2, "Error\nTexture loading failure\n"), ERROR);
 	}
 	else if (num == WEST)
 	{
+		data->west_txt = (t_texture *)malloc(sizeof(t_texture));
+		if (!data->west_txt)
+			return (ft_printf(2, "Error\nMalloc failure in parsing\n"), ERROR);
 		data->west_txt = strdup(path);
-		ft_printf(LOGS, "[PARSE2]: Assigned %s to west_txt\n", data->west_txt);
+		data->west_txt->img = mlx_xpm_file_to_image(data->mlx->mlx, data->west_txt, &data->west_txt->width, &data->west_txt->height);
+		if (!data->west_txt->img)
+			return(ft_printf(2, "Error\nTexture loading failure\n"), ERROR);
 	}
 	return (0);
 }
