@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 06:13:05 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/28 03:48:19 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/04 20:22:32 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	ft_p3_isp(char c, t_map *map, int x, int y)
 	{
 		if (map->p_assigned == false)
 		{
+			map->direction = c;
 			map->map_y = y;
 			map->map_x = x;
 			map->p_assigned = true;

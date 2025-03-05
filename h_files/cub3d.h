@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/04 08:51:14 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/05 00:11:28 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define FLOOR 4
 # define CEILING 5
 
-# define WIDTH 1200
+# define WIDTH 1400
 # define HEIGHT 800
 
 # define USAGE "Error\nWrong args number.\nUsage: cub3D [map_file.cub]\n"
@@ -68,6 +68,7 @@ typedef struct s_map
 	int			rows;
 	int			columns;
 	bool		p_assigned;
+	char		direction;
 	int			map_x;
 	int			map_y;
 }t_map;

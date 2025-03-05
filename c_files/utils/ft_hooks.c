@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 01:27:14 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/04 02:07:57 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/05 07:33:28 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int	ft_key_handler(int keycode, t_data *data)
 		if (data->map->map[(int)(data->player->pos_y + data->player->plane_y * 0.2)][(int)data->player->pos_x] != '1')
 			data->player->pos_y += data->player->plane_y * 0.2;
 	}
-	if (keycode == XK_Left)
+	if (keycode == XK_Right)
 	{
 		data->player->old_dir_x = data->player->dir_x;
 		data->player->dir_x = data->player->dir_x * cos(0.2) - data->player->dir_y * sin(0.2);
@@ -135,7 +135,7 @@ int	ft_key_handler(int keycode, t_data *data)
 		data->player->plane_x = data->player->plane_x * cos(0.2) - data->player->plane_y * sin(0.2);
 		data->player->plane_y = data->player->old_plane_x * sin(0.2) + data->player->plane_y * cos(0.2);
 	}
-	else if (keycode == XK_Right)
+	else if (keycode == XK_Left)
 	{
 		data->player->old_dir_x = data->player->dir_x;
 		data->player->dir_x = data->player->dir_x * cos(-0.2) - data->player->dir_y * sin(-0.2);

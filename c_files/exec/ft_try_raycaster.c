@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 07:09:29 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/04 08:56:50 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/05 07:17:18 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	ft_raycaster(t_data *data)
 			data->player->perp_wall_dist = (data->player->side_dist_x - data->player->delta_dist_x);
 		else
 			data->player->perp_wall_dist = (data->player->side_dist_y - data->player->delta_dist_y);
-
 		ft_calculate_line_height(data->player);
 		if (side == 0)
 			data->player->wall_x = data->player->pos_y + data->player->perp_wall_dist * data->player->ray_dir_y;
@@ -129,7 +128,7 @@ void	ft_draw_vertical(int x, t_player *p, t_data *data, int *side)
 
 t_texture	*ft_get_texture(t_player *p, t_data *data, int *side)
 {
-	if (side == 0)
+	if (*side == 0)
 	{
 		if (p->ray_dir_x > 0)
 			return (data->east_txt);
