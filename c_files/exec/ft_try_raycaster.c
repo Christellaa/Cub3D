@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 07:09:29 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/05 07:17:18 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/05 10:49:08 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_raycaster(t_data *data)
 	x = 0;
 	if (data->mlx->buf)
 		ft_memset(data->mlx->buf, 0, data->mlx->s_l * HEIGHT);
-	mlx_clear_window(data->mlx->mlx, data->mlx->win);
+	ft_draw_ceiling_floor(data);
 	while (x < WIDTH)
 	{
 		ft_reinit_2_all(data->player, data->map, x);
@@ -89,6 +89,47 @@ void	ft_digital_differential_analyzer(t_player *p, t_map *m, int *hit, int *side
 			*hit = 1;
 		if (m->map[m->map_y][m->map_x] == '1')
 			*hit = 1;
+	}
+}
+
+void	ft_draw_ceiling_floor(t_data *data)
+{
+	int		x;
+	int		y;
+	int		half;
+	int		c_color;
+	int		f_color;
+	char	*buf;
+
+	half = HEIGHT / 2;
+	y = 0;
+	x = 0;
+	c_color = (data->ceiling_rgb->r << 16) | (data->ceiling_rgb->g << 8) | data->ceiling_rgb->b;
+	f_color = (data->floor_rgb->r << 16) | (data->floor_rgb->g << 8) | data->floor_rgb->b;
+	buf = data->mlx->buf;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			int	pixel_index = (y * data->mlx->s_l) + (x * data->mlx->bpp / 8);
+			if (y < half)
+			{
+				data->player->color = c_color;
+				buf[pixel_index + 0] = data->player->color & 0xFF;
+				buf[pixel_index + 1] = (data->player->color >> 8) & 0xFF;
+				buf[pixel_index + 2] = (data->player->color >> 16) & 0xFF;
+			}
+			else
+			{
+				data->player->color = f_color;
+				buf[pixel_index + 0] = data->player->color & 0xFF;
+				buf[pixel_index + 1] = (data->player->color >> 8) & 0xFF;
+				buf[pixel_index + 2] = (data->player->color >> 16) & 0xFF;
+			}
+			x++;
+		}
+		y++;
 	}
 }
 

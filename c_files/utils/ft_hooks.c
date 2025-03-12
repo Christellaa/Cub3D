@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 01:27:14 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/05 07:33:28 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/05 12:09:01 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void rotate_angle(t_data *data, int angle)
 
 	data->player->dir_x = cos(data->player->camera_x);
 	data->player->dir_y = sin(data->player->camera_x);
-	printf("camerax: %f, dirx: %f, diry: %f\n", data->player->camera_x, data->player->dir_x, data->player->dir_y);
 	draw_line(data);
 	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, data->minimap->img_ptr, 0, 0);
 }

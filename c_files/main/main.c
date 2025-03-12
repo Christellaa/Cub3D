@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:24:26 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/05 07:37:59 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/05 09:13:15 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	int		i;
-
+	double angle;
+	
 	i = 0;
 	ft_printf(LOGSV, "[VERBOSE][PARSE]: Verify single arg: argc == %d\n", argc);
 	if (argc != 2)
@@ -34,19 +35,14 @@ int	main(int argc, char **argv)
 		ft_printf(2, "%s\n", data.map->map[i]);
 		i++;
 	}
-    double angle = 0;
-
-    if (data.map->direction == 'N') angle = -PI/2;   // -90 degrees (π/2)
-    if (data.map->direction == 'S') angle = PI/2;  // 90 degrees (-π/2)
-    if (data.map->direction == 'W') angle = PI;     // 180 degrees (π)
+	if (data.map->direction == 'N') angle = -PI/2;   // -90 degrees (π/2)
+	if (data.map->direction == 'S') angle = PI/2;  // 90 degrees (-π/2)
+	if (data.map->direction == 'W') angle = PI;     // 180 degrees (π)
 	if (data.map->direction == 'E') angle = 0;	// 0 degrees (2π)
-
-    data.player->dir_x = cos(angle);
-    data.player->dir_y = sin(angle);
-
-
-    data.player->plane_x = -sin(angle) * 0.66;
-    data.player->plane_y = cos(angle) * 0.66;
+	data.player->dir_x = cos(angle);
+	data.player->dir_y = sin(angle);
+	data.player->plane_x = -sin(angle) * 0.66;
+	data.player->plane_y = cos(angle) * 0.66;
 	mlx_loop_hook(data.mlx->mlx, ft_raycaster, &data);
 	mlx_hook(data.mlx->win, KeyPress, KeyPressMask, ft_key_handler, &data);
 	mlx_hook(data.mlx->win, DestroyNotify, StructureNotifyMask,

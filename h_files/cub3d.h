@@ -6,7 +6,7 @@
 /*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/05 00:11:28 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/05 10:49:35 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define FLOOR 4
 # define CEILING 5
 
-# define WIDTH 1400
+# define WIDTH 1200
 # define HEIGHT 800
 
 # define USAGE "Error\nWrong args number.\nUsage: cub3D [map_file.cub]\n"
@@ -137,7 +137,7 @@ typedef struct s_mlx
 	int		bpp;
 	int		s_l;
 	int		e;
-	char	*buf;
+	void	*buf;
 }t_mlx;
 
 typedef struct s_texture
@@ -235,6 +235,7 @@ void	ft_draw_vertical(int x, t_player *p, t_data *data, int *side);
 void	ft_put_pixel(t_data *data, int x, int y, int color);
 int		ft_get_txt_pixel(t_texture *txt, int x, int y);
 t_texture	*ft_get_texture(t_player *p, t_data *data, int *side);
+void	ft_draw_ceiling_floor(t_data *data);
 
 void	put_pixel(t_data *data, int x, int y, int color);
 void	render_map2D(t_minimap *minimap, t_data *data);

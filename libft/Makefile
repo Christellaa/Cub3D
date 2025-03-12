@@ -27,7 +27,7 @@ FTTO_DIR:= ft_to/
 FTTO:= ft_atoi.c ft_itoa.c ft_tolower.c ft_toupper.c
 
 FTMEM_DIR:= ft_mem/
-FTMEM:= ft_bzero.c ft_calloc.c ft_memset.c ft_memcmp.c ft_memchr.c ft_memmove.c
+FTMEM:= ft_bzero.c ft_calloc.c ft_memset.c ft_memcmp.c ft_memchr.c ft_memmove.c ft_memcpy.c
 
 FTSTR_DIR:= ft_str/
 FTSTR:= ft_split.c ft_strchr.c ft_strdup.c ft_strncmp.c ft_strjoin.c ft_striteri.c\
