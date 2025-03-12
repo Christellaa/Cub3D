@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:47:28 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/28 15:25:23 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/12 13:40:12 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ void	ft_init_player(t_player *player)
 	player->camera_x = 0;
 	player->ray_dir_x = 0;
 	player->ray_dir_y = 0;
+	player->move_x = 0;
+	player->move_y = 0;
+	player->rotate = 0;
 }
 
 void	ft_init_map(t_map *map)

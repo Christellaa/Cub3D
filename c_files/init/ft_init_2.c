@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 00:34:12 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/05 07:16:00 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/12 15:43:19 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int ft_init_minimap(t_data *data)
 	return (0);
 }
 
-void	ft_reinit_2_all(t_player *p, t_map *m, int x)
+void	ft_init_dda(t_player *p, t_map *m, int x)
 {
 	p->camera_x = 2 * x / (double) WIDTH - 1;
 	p->ray_dir_x = p->dir_x + p->plane_x * p->camera_x;
@@ -58,5 +58,5 @@ void	ft_reinit_2_all(t_player *p, t_map *m, int x)
 	m->map_y = (int)p->pos_y;
 	p->delta_dist_x = (p->ray_dir_x == 0) ? 1e30 : fabs(1 / p->ray_dir_x);
 	p->delta_dist_y = (p->ray_dir_y == 0) ? 1e30 : fabs(1 / p->ray_dir_y);
-	ft_fuck_norminette(p, m);
+	ft_init_dda2(p, m);
 }

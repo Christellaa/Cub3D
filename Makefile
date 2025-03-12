@@ -6,7 +6,7 @@
 #    By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/20 23:13:34 by ilevy             #+#    #+#              #
-#    Updated: 2025/02/28 20:08:23 by cde-sous         ###   ########.fr        #
+#    Updated: 2025/03/12 15:31:14 by cde-sous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,14 +73,14 @@ $(NAME): $(O_DIR_SUBS) $(OBJ)
 	$(CC) $(CFLAGS) -I $(H_DIR) -I $(MLX) -o $(NAME) $(OBJ) $(LIBFT_FLAG) $(LIBMLX)
 	@echo "Compiled $(NAME)"
 
-$(O_DIR)%.o: $(C_DIR)%.c
+$(O_DIR)%.o: $(C_DIR)%.c | $(O_DIR_SUBS)
 	$(CC) $(CFLAGS) -I $(H_DIR) -I $(MLX) -c $< -o $@
 
 $(O_DIR_SUBS): $(O_DIR)
 	mkdir -p $(O_DIR_SUBS)
 
 $(O_DIR):
-	@wget https://cdn.intra.42.fr/document/document/26097/minilibx-linux.tgz
+	@wget https://cdn.intra.42.fr/document/document/31613/minilibx-linux.tgz
 	@tar -xpf minilibx-linux.tgz
 	@rm -rf minilibx-linux.tgz
 	mkdir -p $(O_DIR)

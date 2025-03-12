@@ -1,0 +1,5 @@
+- norm
+- add mouse moves
+
+- ft_window and commented code in ft_hooks, useless? think of minimap
+- if textures are drawn weirdly it's because of using texture.height 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/05 10:49:35 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/12 15:48:46 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 // Set LOGS and LOGSV to -1 to hide logs
 # define LOGS -1
 # define LOGSV -1
+# define BONUS 0
 
 # define ERROR -1
 
@@ -51,6 +52,7 @@
 
 # define PI 3.1415926535
 # define ANGLE_INCREMENT (PI / 30)
+# define SPEED 0.015
 
 // ------------TYPEDEF--------------
 
@@ -122,6 +124,10 @@ typedef struct s_player
 	int		draw_end;
 
 	int		color;
+
+	int move_x;
+	int move_y;
+	int rotate;
 
 }t_player;
 
@@ -200,7 +206,7 @@ void	ft_init_data_params(t_data *data);
 //		ft_init_2.c
 int		ft_init_mlx(t_mlx *mlx);
 int 	ft_init_minimap(t_data *data);
-void	ft_reinit_2_all(t_player *p, t_map *m, int x);
+void	ft_init_dda(t_player *p, t_map *m, int x);
 
 // PARSING
 
@@ -227,10 +233,10 @@ int		ft_parse3_flood_fill(t_data *data);
 // EXEC
 
 //		ft_try_raycaster.c
-int		ft_raycaster(t_data *data);
-void	ft_fuck_norminette(t_player *p, t_map *m);
+void	ft_raycaster(t_data *data);
+void	ft_init_dda2(t_player *p, t_map *m);
 void	ft_digital_differential_analyzer(t_player *p, t_map *m, int *hit, int *side);
-void	ft_calculate_line_height(t_player *p);
+void	ft_calculate_line_height(t_player *p, t_data *data, int side);
 void	ft_draw_vertical(int x, t_player *p, t_data *data, int *side);
 void	ft_put_pixel(t_data *data, int x, int y, int color);
 int		ft_get_txt_pixel(t_texture *txt, int x, int y);
@@ -282,7 +288,9 @@ int		*ft_util_get_dir_x(void);
 
 //		ft_hooks.c
 int		ft_cross(t_data *data);
-int		ft_key_handler(int keycode, t_data *data);
+int		render(t_data *data);
+int		ft_key_press_handler(int keycode, t_data *data);
+int		ft_key_release_handler(int keycode, t_data *data);
 
 
 // FREE

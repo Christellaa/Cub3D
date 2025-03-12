@@ -3,16 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_try_raycaster.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 07:09:29 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/05 10:49:08 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/12 16:15:42 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../h_files/cub3d.h"
 
-int	ft_raycaster(t_data *data)
+void	ft_init_wall_x(t_data *data, int side)
+{
+	if (side == 0)
+		data->player->wall_x = data->player->pos_y + \
+		data->player->perp_wall_dist * data->player->ray_dir_y;
+	else
+		data->player->wall_x = data->player->pos_x + \
+		data->player->perp_wall_dist * data->player->ray_dir_x;
+}
+
+void	ft_raycaster(t_data *data)
 {
 	int	x;
 	int	hit;
@@ -25,26 +35,18 @@ int	ft_raycaster(t_data *data)
 	ft_draw_ceiling_floor(data);
 	while (x < WIDTH)
 	{
-		ft_reinit_2_all(data->player, data->map, x);
+		ft_init_dda(data->player, data->map, x);
 		hit = 0;
 		ft_digital_differential_analyzer(data->player, data->map, &hit, &side);
-		if (side == 0)
-			data->player->perp_wall_dist = (data->player->side_dist_x - data->player->delta_dist_x);
-		else
-			data->player->perp_wall_dist = (data->player->side_dist_y - data->player->delta_dist_y);
-		ft_calculate_line_height(data->player);
-		if (side == 0)
-			data->player->wall_x = data->player->pos_y + data->player->perp_wall_dist * data->player->ray_dir_y;
-		else
-			data->player->wall_x = data->player->pos_x + data->player->perp_wall_dist * data->player->ray_dir_x;
+		ft_calculate_line_height(data->player, data, side);
+		ft_init_wall_x(data, side);
 		data->player->wall_x -= floor(data->player->wall_x);
 		ft_draw_vertical(x, data->player, data, &side);
 		x++;
 	}
-	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, data->mlx->img_ptr, 0, 0);
-	return (0);
 }
-void	ft_fuck_norminette(t_player *p, t_map *m)
+
+void	ft_init_dda2(t_player *p, t_map *m)
 {
 	if (p->ray_dir_x < 0)
 	{
@@ -54,7 +56,7 @@ void	ft_fuck_norminette(t_player *p, t_map *m)
 	else
 	{
 		p->step_x = 1;
-		p->side_dist_x = (m->map_x + 1 - p->pos_x) * p->delta_dist_x;
+		p->side_dist_x = (m->map_x + 1.0 - p->pos_x) * p->delta_dist_x;
 	}
 	if (p->ray_dir_y < 0)
 	{
@@ -64,13 +66,13 @@ void	ft_fuck_norminette(t_player *p, t_map *m)
 	else
 	{
 		p->step_y = 1;
-		p->side_dist_y = (m->map_y + 1 - p->pos_y) * p->delta_dist_y;
+		p->side_dist_y = (m->map_y + 1.0 - p->pos_y) * p->delta_dist_y;
 	}
 }
 
-void	ft_digital_differential_analyzer(t_player *p, t_map *m, int *hit, int *side)
+void	ft_digital_differential_analyzer(t_player *p, t_map *m, int *hit,
+	int *side)
 {
-
 	while (!(*hit))
 	{
 		if (p->side_dist_x < p->side_dist_y)
@@ -85,59 +87,71 @@ void	ft_digital_differential_analyzer(t_player *p, t_map *m, int *hit, int *side
 			m->map_y += p->step_y;
 			*side = 1;
 		}
-		if (m->map_y < 0 || m->map_y >= HEIGHT || m->map_x < 0 || m->map_x >= WIDTH)
-			*hit = 1;
-		if (m->map[m->map_y][m->map_x] == '1')
+		if (m->map_y < 0.25 || m->map_y >= HEIGHT - 0.25 || m->map_x < 0.25 || \
+			m->map_x >= WIDTH - 1.25)
+			break ;
+		else if (m->map[m->map_y][m->map_x] == '1')
 			*hit = 1;
 	}
+}
+
+void	ft_draw_ceiling_floor2(t_data *data, int pixel_index)
+{
+	char	*buf;
+
+	buf = data->mlx->buf;
+	buf[pixel_index + 0] = data->player->color & 0xFF;
+	buf[pixel_index + 1] = (data->player->color >> 8) & 0xFF;
+	buf[pixel_index + 2] = (data->player->color >> 16) & 0xFF;
+}
+
+void	init_colors(int *c_color, int *f_color, t_data *data)
+{
+	*c_color = (data->ceiling_rgb->r << 16) | (data->ceiling_rgb->g << 8) | \
+	data->ceiling_rgb->b;
+	*f_color = (data->floor_rgb->r << 16) | (data->floor_rgb->g << 8) | \
+	data->floor_rgb->b;
 }
 
 void	ft_draw_ceiling_floor(t_data *data)
 {
 	int		x;
 	int		y;
-	int		half;
 	int		c_color;
 	int		f_color;
-	char	*buf;
+	int		pixel_index;
 
-	half = HEIGHT / 2;
 	y = 0;
 	x = 0;
-	c_color = (data->ceiling_rgb->r << 16) | (data->ceiling_rgb->g << 8) | data->ceiling_rgb->b;
-	f_color = (data->floor_rgb->r << 16) | (data->floor_rgb->g << 8) | data->floor_rgb->b;
-	buf = data->mlx->buf;
+	init_colors(&c_color, &f_color, data);
 	while (y < HEIGHT)
 	{
 		x = 0;
 		while (x < WIDTH)
 		{
-			int	pixel_index = (y * data->mlx->s_l) + (x * data->mlx->bpp / 8);
-			if (y < half)
-			{
+			pixel_index = (y * data->mlx->s_l) + (x * data->mlx->bpp / 8);
+			if (y < HEIGHT / 2)
 				data->player->color = c_color;
-				buf[pixel_index + 0] = data->player->color & 0xFF;
-				buf[pixel_index + 1] = (data->player->color >> 8) & 0xFF;
-				buf[pixel_index + 2] = (data->player->color >> 16) & 0xFF;
-			}
 			else
-			{
 				data->player->color = f_color;
-				buf[pixel_index + 0] = data->player->color & 0xFF;
-				buf[pixel_index + 1] = (data->player->color >> 8) & 0xFF;
-				buf[pixel_index + 2] = (data->player->color >> 16) & 0xFF;
-			}
+			ft_draw_ceiling_floor2(data, pixel_index);
 			x++;
 		}
 		y++;
 	}
 }
 
-void	ft_calculate_line_height(t_player *p)
+void	ft_calculate_line_height(t_player *p, t_data *data, int side)
 {
+	if (side == 0)
+		data->player->perp_wall_dist = (data->player->side_dist_x - \
+			data->player->delta_dist_x);
+	else
+		data->player->perp_wall_dist = (data->player->side_dist_y - \
+			data->player->delta_dist_y);
 	if (p->perp_wall_dist < 0.0001)
 		p->perp_wall_dist = 0.0001;
-	p->line_height = (int) (HEIGHT / p->perp_wall_dist);
+	p->line_height = (int)(HEIGHT / p->perp_wall_dist);
 	p->draw_start = -p->line_height / 2 + HEIGHT / 2;
 	p->draw_end = p->line_height / 2 + HEIGHT / 2;
 	if (p->draw_start < 0)
@@ -146,23 +160,35 @@ void	ft_calculate_line_height(t_player *p)
 		p->draw_end = HEIGHT - 1;
 }
 
+void	ft_draw_vertical2(t_player *p, double txt_pos, t_texture *texture,
+	int txt_x)
+{
+	int	txt_y;
+
+	txt_y = (int)txt_pos & (texture->height -1);
+	p->color = ft_get_txt_pixel(texture, txt_x, txt_y);
+}
+
 void	ft_draw_vertical(int x, t_player *p, t_data *data, int *side)
 {
-	int	y;
-	int	txt_y;
-	int	txt_x;
+	int			y;
+	int			txt_x;
 	t_texture	*texture;
+	double		step;
+	double		txt_pos;
 
 	y = p->draw_start;
 	texture = ft_get_texture(p, data, side);
-	txt_x = (int)(p->wall_x * texture->width);
+	txt_x = (int)(p->wall_x * texture->height);
 	if ((*side == 0 && p->ray_dir_x > 0) || (*side == 1 && p->ray_dir_y < 0))
-		txt_x = texture->width - txt_x - 1;
+		txt_x = texture->height - txt_x - 1;
+	step = 1.0 * texture->height / p->line_height;
+	txt_pos = (p->draw_start - HEIGHT / 2 + p->line_height / 2) * step;
 	while (y < p->draw_end)
 	{
-		txt_y = ((y - p->draw_start) * texture->height) / (p->draw_end - p->draw_start);
-		p->color = ft_get_txt_pixel(texture, txt_x, txt_y);
+		ft_draw_vertical2(data->player, txt_pos, texture, txt_x);
 		ft_put_pixel(data, x, y, p->color);
+		txt_pos += step;
 		y++;
 	}
 }
