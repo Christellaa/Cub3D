@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:47:28 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/12 13:40:12 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/13 10:46:22 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_init_data(t_data *data)
 		return (ft_printf(2, "Error\nMalloc error during mlx init\n"), ERROR);
 	if (ft_init_minimap(data) == ERROR)
 		return (ft_printf(2, "Error\nMalloc error during minimap init\n"),
-		ERROR);
+			ERROR);
 	ft_init_map(data->map);
 	ft_init_player(data->player);
 	ft_init_rgbs(data->ceiling_rgb, data->floor_rgb);

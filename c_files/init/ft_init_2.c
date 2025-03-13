@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 00:34:12 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/12 15:43:19 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:34:05 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ int	ft_init_mlx(t_mlx *mlx)
 	return (0);
 }
 
-int ft_init_minimap(t_data *data)
+int	ft_init_minimap(t_data *data)
 {
 	data->minimap->map = data->map;
-	data->minimap->img_ptr = mlx_new_image(data->mlx->mlx, data->mlx->width,
+	data->minimap->img_ptr = mlx_new_image(data->mlx->mlx, data->mlx->width, \
 		data->mlx->height);
 	if (!data->minimap->img_ptr)
 		return (ERROR);
-	data->minimap->buf = (int *)mlx_get_data_addr(data->minimap->img_ptr,
-	&data->minimap->bpp, &data->minimap->s_l, &data->minimap->e);
+	data->minimap->buf = (int *)mlx_get_data_addr(data->minimap->img_ptr, \
+		&data->minimap->bpp, &data->minimap->s_l, &data->minimap->e);
 	data->minimap->tile_size = 32;
 	data->minimap->margin = 1;
 	return (0);
@@ -56,7 +56,37 @@ void	ft_init_dda(t_player *p, t_map *m, int x)
 	p->ray_dir_y = p->dir_y + p->plane_y * p->camera_x;
 	m->map_x = (int)p->pos_x;
 	m->map_y = (int)p->pos_y;
-	p->delta_dist_x = (p->ray_dir_x == 0) ? 1e30 : fabs(1 / p->ray_dir_x);
-	p->delta_dist_y = (p->ray_dir_y == 0) ? 1e30 : fabs(1 / p->ray_dir_y);
+	if (p->ray_dir_x == 0)
+		p->delta_dist_x = 1e30;
+	else
+		p->delta_dist_x = fabs(1 / p->ray_dir_x);
+	if (p->ray_dir_y == 0)
+		p->delta_dist_y = 1e30;
+	else
+		p->delta_dist_y = fabs(1 / p->ray_dir_y);
 	ft_init_dda2(p, m);
+}
+
+void	ft_init_dda2(t_player *p, t_map *m)
+{
+	if (p->ray_dir_x < 0)
+	{
+		p->step_x = -1;
+		p->side_dist_x = (p->pos_x - m->map_x) * p->delta_dist_x;
+	}
+	else
+	{
+		p->step_x = 1;
+		p->side_dist_x = (m->map_x + 1.0 - p->pos_x) * p->delta_dist_x;
+	}
+	if (p->ray_dir_y < 0)
+	{
+		p->step_y = -1;
+		p->side_dist_y = (p->pos_y - m->map_y) * p->delta_dist_y;
+	}
+	else
+	{
+		p->step_y = 1;
+		p->side_dist_y = (m->map_y + 1.0 - p->pos_y) * p->delta_dist_y;
+	}
 }

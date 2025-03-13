@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/12 15:48:46 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:58:48 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,6 +287,12 @@ int		*ft_util_get_dir_y(void);
 int		*ft_util_get_dir_x(void);
 
 //		ft_hooks.c
+int		move_player(t_data *data);
+int		move_player_forward(t_data *data);
+int		move_player_backward(t_data *data);
+int		move_player_left(t_data *data);
+int		move_player_right(t_data *data);
+int		is_move_valid(t_data *data, double new_x, double new_y);
 int		ft_cross(t_data *data);
 int		render(t_data *data);
 int		ft_key_press_handler(int keycode, t_data *data);
@@ -296,6 +302,7 @@ int		ft_key_release_handler(int keycode, t_data *data);
 // FREE
 
 //		ft_free.c
+void	safe_free_texture(t_texture *txt, t_mlx *mlx);
 void	ft_free_tab(char **split);
 void	ft_clean_exit(t_data *data, int errcode);
 void	ft_free_mlx(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_flood_fill_util.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 01:46:34 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/28 03:09:18 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/13 10:36:48 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,17 @@ bool	ft_ff_util_is_empty(t_stack *stack)
 	return (false);
 }
 
+int	ft_flood_fill_check_char(int new_y, int new_x, t_map *map)
+{
+	if (new_y < 0 || new_y >= map->rows || new_x < 0
+		|| new_x >= (int)ft_strlen(map->map[new_y]))
+		return (ft_printf(2, "Error\nInvalid map: Reach border\n"), ERROR);
+	if (!map->map[new_y] || (map->map[new_y][new_x] == ' '
+		|| map->map[new_y][new_x] == '\n'))
+		return (ft_printf(2, "Error\nInvalid map: Invalid char\n"), ERROR);
+	return (0);
+}
+
 int	ft_flood_fill_one(t_stack *stack, t_map *map, int *dir_x, int *dir_y)
 {
 	t_pos		c;
@@ -71,12 +82,8 @@ int	ft_flood_fill_one(t_stack *stack, t_map *map, int *dir_x, int *dir_y)
 	{
 		new_x = c.x + dir_x[i];
 		new_y = c.y + dir_y[i++];
-		if (new_y < 0 || new_y >= map->rows || new_x < 0
-			|| new_x >= (int)ft_strlen(map->map[new_y]))
-			return (ft_printf(2, "Error\nInvalid map: Reach border\n"), ERROR);
-		if (!map->map[new_y] || (map->map[new_y][new_x] == ' '
-			|| map->map[new_y][new_x] == '\n'))
-			return (ft_printf(2, "Error\nInvalid map: Invalid char\n"), ERROR);
+		if (ft_flood_fill_check_char(new_y, new_x, map) == ERROR)
+			return (ERROR);
 		if (map->map[new_y] && map->map[new_y][new_x] == '0')
 			ft_ff_util_push(stack, new_x, new_y);
 	}
