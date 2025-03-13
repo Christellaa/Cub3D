@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:51:05 by cde-sous          #+#    #+#             */
-/*   Updated: 2025/03/13 12:58:24 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:31:16 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,17 @@
 
 int	move_player(t_data *data)
 {
-	int	move;
-
-	move = 0;
 	if (data->player->move_y == 1)
-		move += move_player_forward(data);
+		data->player->has_moved += move_player_forward(data);
 	if (data->player->move_y == -1)
-		move += move_player_backward(data);
+		data->player->has_moved += move_player_backward(data);
 	if (data->player->move_x == -1)
-		move += move_player_left(data);
+		data->player->has_moved += move_player_left(data);
 	if (data->player->move_x == 1)
-		move += move_player_right(data);
+		data->player->has_moved += move_player_right(data);
 	if (data->player->rotate != 0)
-		move += rotate_player(data, data->player->rotate);
-	return (move);
+		data->player->has_moved += rotate_player(data, data->player->rotate);
+	return (data->player->has_moved);
 }
 
 int	rotate_player(t_data *data, double rotation)

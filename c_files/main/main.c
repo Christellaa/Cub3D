@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:24:26 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/13 12:51:36 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:29:29 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int argc, char **argv)
 		ft_printf(2, "%s\n", data.map->map[i]);
 		i++;
 	}
+	mlx_mouse_hide(data.mlx->mlx, data.mlx->win);
 	init_player_direction(&data);
 	ft_raycaster(&data);
 	mlx_put_image_to_window(data.mlx->mlx, data.mlx->win, data.mlx->img_ptr, \
@@ -73,5 +74,7 @@ void	hooks(t_data *data)
 		ft_key_release_handler, data);
 	mlx_hook(data->mlx->win, DestroyNotify, StructureNotifyMask,
 		ft_cross, &data);
+	mlx_hook(data->mlx->win, MotionNotify, PointerMotionMask, mouse_handler, \
+		data);
 	mlx_loop_hook(data->mlx->mlx, render, data);
 }

@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/13 13:32:21 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:06:37 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,9 @@ typedef struct s_player
 	int		move_x;
 	int		move_y;
 	int		rotate;
+	int		prev_mouse_x;
+	int		ctrl_pressed;
+	int		has_moved;
 
 }	t_player;
 
@@ -305,6 +308,7 @@ int			*ft_util_get_dir_x(void);
 int			ft_cross(t_data *data);
 int			ft_key_press_handler(int keycode, t_data *data);
 int			ft_key_release_handler(int keycode, t_data *data);
+int			mouse_handler(int x, int y, t_data *data);
 int			render(t_data *data);
 
 //		ft_moves_utils.c

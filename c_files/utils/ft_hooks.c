@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 01:27:14 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/13 11:51:48 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:30:00 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,11 @@ int	ft_key_press_handler(int keycode, t_data *data)
 		data->player->rotate -= 1;
 	if (keycode == XK_Right)
 		data->player->rotate += 1;
+	if (keycode == XK_Control_L)
+	{
+		data->player->ctrl_pressed = 1;
+		mlx_mouse_show(data->mlx->mlx, data->mlx->win);
+	}
 	return (0);
 }
 
@@ -131,6 +136,29 @@ int	ft_key_release_handler(int keycode, t_data *data)
 		data->player->rotate = 0;
 	if (keycode == XK_Right && data->player->rotate >= -1)
 		data->player->rotate = 0;
+	if (keycode == XK_Control_L && data->player->ctrl_pressed == 1)
+	{
+		data->player->ctrl_pressed = 0;
+		mlx_mouse_hide(data->mlx->mlx, data->mlx->win);
+	}
+	return (0);
+}
+
+int	mouse_handler(int x, int y, t_data *data)
+{
+	(void)y;
+	if (x == data->player->prev_mouse_x)
+		return (0);
+	if (data->player->ctrl_pressed == 0)
+	{
+		mlx_mouse_move(data->mlx->mlx, data->mlx->win, WIDTH / 2, HEIGHT / 2);
+		if (x < data->player->prev_mouse_x)
+			rotate_player(data, -1);
+		else if (x > data->player->prev_mouse_x)
+			rotate_player(data, 1);
+		data->player->has_moved = 1;
+		data->player->prev_mouse_x = x;
+	}
 	return (0);
 }
 
@@ -138,6 +166,7 @@ int	render(t_data *data)
 {
 	if (!move_player(data))
 		return (0);
+	data->player->has_moved = 0;
 	ft_raycaster(data);
 	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, \
 		data->mlx->img_ptr, 0, 0);
