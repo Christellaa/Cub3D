@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:39:34 by cde-sous          #+#    #+#             */
-/*   Updated: 2025/03/13 13:21:37 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:05:38 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ void	ft_draw_vertical(int x, t_player *p, t_data *data, int *side)
 
 	y = p->draw_start;
 	texture = ft_get_texture(p, data, side);
-	txt_x = (int)(p->wall_x * texture->height);
+	txt_x = (int)(p->wall_x * texture->width) % texture->width;
 	if ((*side == 0 && p->ray_dir_x > 0) || (*side == 1 && p->ray_dir_y < 0))
-		txt_x = texture->height - txt_x - 1;
+		txt_x = (texture->width + (texture->width - txt_x - 1)) % \
+		texture->width;
 	step = 1.0 * texture->height / p->line_height;
 	txt_pos = (p->draw_start - HEIGHT / 2 + p->line_height / 2) * step;
 	while (y < p->draw_end)
@@ -59,7 +60,7 @@ void	ft_draw_vertical2(t_player *p, double txt_pos, t_texture *texture,
 {
 	int	txt_y;
 
-	txt_y = (int)txt_pos & (texture->height -1);
+	txt_y = (texture->height + (int)txt_pos) % texture->height;
 	p->color = ft_get_txt_pixel(texture, txt_x, txt_y);
 }
 
