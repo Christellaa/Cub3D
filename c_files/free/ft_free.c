@@ -6,27 +6,27 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 00:09:00 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/13 11:48:17 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:48:48 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../h_files/cub3d.h"
 
-void	ft_free_maps(t_data *data)
+void	ft_clean_exit(t_data *data, int errcode)
 {
-	if (data->minimap)
-	{
-		if (data->minimap->img_ptr && data->mlx->mlx)
-			mlx_destroy_image(data->mlx->mlx, data->minimap->img_ptr);
-		free(data->minimap);
-		data->minimap = NULL;
-	}
-	if (data->map)
-	{
-		if (data->map->map)
-			ft_free_tab(data->map->map);
-		free(data->map);
-	}
+	if (data->filename)
+		free(data->filename);
+	ft_free_textures(data);
+	if (data->player)
+		free(data->player);
+	if (data->ceiling_rgb)
+		free(data->ceiling_rgb);
+	if (data->floor_rgb)
+		free(data->floor_rgb);
+	ft_free_maps(data);
+	if (data->mlx)
+		ft_free_mlx(data);
+	exit(errcode);
 }
 
 void	ft_free_textures(t_data *data)
@@ -57,21 +57,21 @@ void	ft_free_textures(t_data *data)
 	}
 }
 
-void	ft_clean_exit(t_data *data, int errcode)
+void	ft_free_maps(t_data *data)
 {
-	if (data->filename)
-		free(data->filename);
-	ft_free_textures(data);
-	if (data->player)
-		free(data->player);
-	if (data->ceiling_rgb)
-		free(data->ceiling_rgb);
-	if (data->floor_rgb)
-		free(data->floor_rgb);
-	ft_free_maps(data);
-	if (data->mlx)
-		ft_free_mlx(data);
-	exit(errcode);
+	if (data->minimap)
+	{
+		if (data->minimap->img_ptr && data->mlx->mlx)
+			mlx_destroy_image(data->mlx->mlx, data->minimap->img_ptr);
+		free(data->minimap);
+		data->minimap = NULL;
+	}
+	if (data->map)
+	{
+		if (data->map->map)
+			ft_free_tab(data->map->map);
+		free(data->map);
+	}
 }
 
 void	ft_free_mlx(t_data *data)

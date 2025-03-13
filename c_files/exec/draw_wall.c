@@ -6,20 +6,11 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:39:34 by cde-sous          #+#    #+#             */
-/*   Updated: 2025/03/13 11:39:56 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:21:37 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../h_files/cub3d.h"
-
-void	ft_draw_vertical2(t_player *p, double txt_pos, t_texture *texture,
-	int txt_x)
-{
-	int	txt_y;
-
-	txt_y = (int)txt_pos & (texture->height -1);
-	p->color = ft_get_txt_pixel(texture, txt_x, txt_y);
-}
 
 void	ft_draw_vertical(int x, t_player *p, t_data *data, int *side)
 {
@@ -63,14 +54,13 @@ t_texture	*ft_get_texture(t_player *p, t_data *data, int *side)
 	}
 }
 
-void	ft_put_pixel(t_data *data, int x, int y, int color)
+void	ft_draw_vertical2(t_player *p, double txt_pos, t_texture *texture,
+	int txt_x)
 {
-	char	*dst;
+	int	txt_y;
 
-	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-		return ;
-	dst = data->mlx->buf + (y * data->mlx->s_l + x * (data->mlx->bpp / 8));
-	*(unsigned int *)dst = color;
+	txt_y = (int)txt_pos & (texture->height -1);
+	p->color = ft_get_txt_pixel(texture, txt_x, txt_y);
 }
 
 int	ft_get_txt_pixel(t_texture *txt, int x, int y)
@@ -83,4 +73,14 @@ int	ft_get_txt_pixel(t_texture *txt, int x, int y)
 	pixel = txt->addr + (y * txt->s_l + x * (txt->bpp / 8));
 	color = *(unsigned int *)pixel;
 	return (color);
+}
+
+void	ft_put_pixel(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return ;
+	dst = data->mlx->buf + (y * data->mlx->s_l + x * (data->mlx->bpp / 8));
+	*(unsigned int *)dst = color;
 }

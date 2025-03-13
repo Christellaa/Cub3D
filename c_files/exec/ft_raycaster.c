@@ -6,21 +6,11 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 07:09:29 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/13 11:39:57 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:47:01 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../h_files/cub3d.h"
-
-void	ft_init_wall_x(t_data *data, int side)
-{
-	if (side == 0)
-		data->player->wall_x = data->player->pos_y + \
-		data->player->perp_wall_dist * data->player->ray_dir_y;
-	else
-		data->player->wall_x = data->player->pos_x + \
-		data->player->perp_wall_dist * data->player->ray_dir_x;
-}
 
 void	ft_raycaster(t_data *data)
 {
@@ -88,4 +78,14 @@ void	ft_calculate_line_height(t_player *p, t_data *data, int side)
 		p->draw_start = 0;
 	if (p->draw_end >= HEIGHT)
 		p->draw_end = HEIGHT - 1;
+}
+
+void	ft_init_wall_x(t_data *data, int side)
+{
+	if (side == 0)
+		data->player->wall_x = data->player->pos_y + \
+		data->player->perp_wall_dist * data->player->ray_dir_y;
+	else
+		data->player->wall_x = data->player->pos_x + \
+		data->player->perp_wall_dist * data->player->ray_dir_x;
 }

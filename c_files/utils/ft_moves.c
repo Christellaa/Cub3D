@@ -6,34 +6,27 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:51:05 by cde-sous          #+#    #+#             */
-/*   Updated: 2025/03/13 11:53:01 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:58:24 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../h_files/cub3d.h"
 
-int	is_move_in_map(t_map *map, double x, double y)
-{
-	if (map->map[(int)y][(int)x] != '1')
-		return (1);
-	return (0);
-}
-
-int	is_move_valid(t_data *data, double new_x, double new_y)
+int	move_player(t_data *data)
 {
 	int	move;
 
 	move = 0;
-	if (is_move_in_map(data->map, new_x, data->player->pos_y))
-	{
-		move++;
-		data->player->pos_x = new_x;
-	}
-	if (is_move_in_map(data->map, data->player->pos_x, new_y))
-	{
-		move++;
-		data->player->pos_y = new_y;
-	}
+	if (data->player->move_y == 1)
+		move += move_player_forward(data);
+	if (data->player->move_y == -1)
+		move += move_player_backward(data);
+	if (data->player->move_x == -1)
+		move += move_player_left(data);
+	if (data->player->move_x == 1)
+		move += move_player_right(data);
+	if (data->player->rotate != 0)
+		move += rotate_player(data, data->player->rotate);
 	return (move);
 }
 
@@ -56,20 +49,27 @@ int	rotate_player(t_data *data, double rotation)
 	return (1);
 }
 
-int	move_player(t_data *data)
+int	is_move_valid(t_data *data, double new_x, double new_y)
 {
 	int	move;
 
 	move = 0;
-	if (data->player->move_y == 1)
-		move += move_player_forward(data);
-	if (data->player->move_y == -1)
-		move += move_player_backward(data);
-	if (data->player->move_x == -1)
-		move += move_player_left(data);
-	if (data->player->move_x == 1)
-		move += move_player_right(data);
-	if (data->player->rotate != 0)
-		move += rotate_player(data, data->player->rotate);
+	if (is_move_in_map(data->map, new_x, data->player->pos_y))
+	{
+		move++;
+		data->player->pos_x = new_x;
+	}
+	if (is_move_in_map(data->map, data->player->pos_x, new_y))
+	{
+		move++;
+		data->player->pos_y = new_y;
+	}
 	return (move);
+}
+
+int	is_move_in_map(t_map *map, double x, double y)
+{
+	if (map->map[(int)y][(int)x] != '1')
+		return (1);
+	return (0);
 }

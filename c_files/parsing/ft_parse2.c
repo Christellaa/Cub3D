@@ -6,11 +6,25 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 01:38:51 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/13 11:29:59 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:34:39 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../h_files/cub3d.h"
+
+// Assigns the texture paths to data struct.
+int	ft_parse2_assign_texture_to_data(char *path, int num, t_data *data)
+{
+	if (num == NORTH)
+		data->north_txt = init_texture(path, data->mlx);
+	else if (num == SOUTH)
+		data->south_txt = init_texture(path, data->mlx);
+	else if (num == EAST)
+		data->east_txt = init_texture(path, data->mlx);
+	else if (num == WEST)
+		data->west_txt = init_texture(path, data->mlx);
+	return (0);
+}
 
 t_texture	*init_texture(char *path, t_mlx *mlx)
 {
@@ -26,20 +40,6 @@ t_texture	*init_texture(char *path, t_mlx *mlx)
 		return (ft_printf(2, "Error\nTexture loading failure\n"), NULL);
 	txt->addr = mlx_get_data_addr(txt->img, &txt->bpp, &txt->s_l, &txt->e);
 	return (txt);
-}
-
-// Assigns the texture paths to data struct.
-int	ft_parse2_assign_texture_to_data(char *path, int num, t_data *data)
-{
-	if (num == NORTH)
-		data->north_txt = init_texture(path, data->mlx);
-	else if (num == SOUTH)
-		data->south_txt = init_texture(path, data->mlx);
-	else if (num == EAST)
-		data->east_txt = init_texture(path, data->mlx);
-	else if (num == WEST)
-		data->west_txt = init_texture(path, data->mlx);
-	return (0);
 }
 
 //Assigns the RGB values to data struct.

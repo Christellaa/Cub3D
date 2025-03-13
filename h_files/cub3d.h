@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/13 11:58:48 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:32:21 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@
 # define FILE_DIR "Error\nCouldn't open file: is a directory\n"
 
 # define PI 3.1415926535
-# define ANGLE_INCREMENT (PI / 30)
 # define SPEED 0.015
 
 // ------------TYPEDEF--------------
@@ -62,7 +61,7 @@ typedef struct s_rgb
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;
-}t_rgb;
+}	t_rgb;
 
 typedef struct s_map
 {
@@ -73,20 +72,20 @@ typedef struct s_map
 	char		direction;
 	int			map_x;
 	int			map_y;
-}t_map;
+}	t_map;
 
 typedef struct s_pos
 {
 	int	x;
 	int	y;
-}t_pos;
+}	t_pos;
 
 typedef struct s_stack
 {
 	t_pos	*pos_data;
 	int		top;
 	int		max_size;
-}t_stack;
+}	t_stack;
 
 typedef struct s_player
 {
@@ -125,11 +124,11 @@ typedef struct s_player
 
 	int		color;
 
-	int move_x;
-	int move_y;
-	int rotate;
+	int		move_x;
+	int		move_y;
+	int		rotate;
 
-}t_player;
+}	t_player;
 
 typedef struct s_mlx
 {
@@ -144,7 +143,7 @@ typedef struct s_mlx
 	int		s_l;
 	int		e;
 	void	*buf;
-}t_mlx;
+}	t_mlx;
 
 typedef struct s_texture
 {
@@ -156,20 +155,19 @@ typedef struct s_texture
 	int		bpp;
 	int		s_l;
 	int		e;
-}t_texture;
-
+}	t_texture;
 
 typedef struct s_minimap
 {
-	t_map *map;
-	void *img_ptr;
-	int bpp;
-	int s_l;
-	int e;
-	int *buf;
-	int tile_size;
-	int margin;
-}t_minimap;
+	t_map	*map;
+	void	*img_ptr;
+	int		bpp;
+	int		s_l;
+	int		e;
+	int		*buf;
+	int		tile_size;
+	int		margin;
+}	t_minimap;
 
 typedef struct s_data
 {
@@ -190,123 +188,152 @@ typedef struct s_data
 
 	t_mlx		*mlx;
 	t_minimap	*minimap;
-}t_data;
+}	t_data;
 
 // ------------DECLARE--------------
 
 // INITIALIZING
 
 // 		ft_init.c
-int		ft_init_data(t_data *data);
-void	ft_init_rgbs(t_rgb *ceiling, t_rgb *floor);
-void	ft_init_player(t_player *player);
-void	ft_init_map(t_map *map);
-void	ft_init_data_params(t_data *data);
+int			ft_init_data(t_data *data);
+void		ft_init_data_params(t_data *data);
+void		ft_init_map(t_map *map);
+void		ft_init_player(t_player *player);
+void		ft_init_rgbs(t_rgb *ceiling, t_rgb *floor);
 
 //		ft_init_2.c
-int		ft_init_mlx(t_mlx *mlx);
-int 	ft_init_minimap(t_data *data);
-void	ft_init_dda(t_player *p, t_map *m, int x);
+int			ft_init_mlx(t_mlx *mlx);
+int			ft_init_minimap(t_data *data);
+void		ft_init_dda(t_player *p, t_map *m, int x);
+void		ft_init_dda2(t_player *p, t_map *m);
 
 // PARSING
 
 // 		ft_parse.c
-int		ft_parse(char **argv, t_data *data);
-int		ft_parse_check_file_path(char **argv, t_data *data);
-int		ft_parse_check_file_rules(char **line, int fd, t_data *data, int card);
-int		ft_parse_check_map_rules(char **line, int open_fd, t_data *data);
+int			ft_parse(char **argv, t_data *data);
+int			ft_parse_check_file_path(char **argv, t_data *data);
+int			ft_parse_check_file_rules(char **line, int fd, t_data *data,
+				int card);
+int			ft_parse_check_map_rules(char **line, int open_fd, t_data *data);
 
 // 		ft_parse1.c
-int		ft_parse1_search_cardinals(char *line);
-int		ft_parse1_check_line(char *line, int return_num, t_data *data);
-int		ft_parse1_xpm_check(char *line, int num, t_data *data);
-int		ft_parse1_rgb_check(char *line, int num, t_data *data);
+int			ft_parse1_search_cardinals(char *line);
+int			ft_parse1_check_line(char *line, int return_num, t_data *data);
+int			ft_parse1_xpm_check(char *line, int num, t_data *data);
+int			ft_parse1_rgb_check(char *line, int num, t_data *data);
 
 // 		ft_parse2.c
-int		ft_parse2_assign_texture_to_data(char *path, int num, t_data *data);
-int		ft_parse2_assign_rgb_to_data(t_data *data, int *rgb_values, int num);
+int			ft_parse2_assign_texture_to_data(char *path, int num, t_data *data);
+t_texture	*init_texture(char *path, t_mlx *mlx);
+int			ft_parse2_assign_rgb_to_data(t_data *data, int *rgb_values,
+				int num);
 
 //		ft_parse3.c
-int		ft_parse3_assign_map_to_data(char **line, int open_fd, t_data *data);
-int		ft_parse3_flood_fill(t_data *data);
+int			ft_parse3_assign_map_to_data(char **line, int open_fd,
+				t_data *data);
+int			ft_parse3_flood_fill(t_data *data);
 
 // EXEC
 
 //		ft_try_raycaster.c
-void	ft_raycaster(t_data *data);
-void	ft_init_dda2(t_player *p, t_map *m);
-void	ft_digital_differential_analyzer(t_player *p, t_map *m, int *hit, int *side);
-void	ft_calculate_line_height(t_player *p, t_data *data, int side);
-void	ft_draw_vertical(int x, t_player *p, t_data *data, int *side);
-void	ft_put_pixel(t_data *data, int x, int y, int color);
-int		ft_get_txt_pixel(t_texture *txt, int x, int y);
-t_texture	*ft_get_texture(t_player *p, t_data *data, int *side);
-void	ft_draw_ceiling_floor(t_data *data);
+void		ft_raycaster(t_data *data);
+void		ft_digital_differential_analyzer(t_player *p, t_map *m, int *hit,
+				int *side);
+void		ft_calculate_line_height(t_player *p, t_data *data, int side);
+void		ft_init_wall_x(t_data *data, int side);
 
-void	put_pixel(t_data *data, int x, int y, int color);
-void	render_map2D(t_minimap *minimap, t_data *data);
+//		draw_ceiling_floor.c
+void		ft_draw_ceiling_floor(t_data *data);
+void		init_colors(int *c_color, int *f_color, t_data *data);
+void		ft_draw_ceiling_floor2(t_data *data, int pixel_index);
+
+//		draw_wall.c
+void		ft_draw_vertical(int x, t_player *p, t_data *data, int *side);
+t_texture	*ft_get_texture(t_player *p, t_data *data, int *side);
+void		ft_draw_vertical2(t_player *p, double txt_pos, t_texture *texture,
+				int txt_x);
+int			ft_get_txt_pixel(t_texture *txt, int x, int y);
+void		ft_put_pixel(t_data *data, int x, int y, int color);
+
+//		minimap? // ft_window.c
+void		put_pixel(t_data *data, int x, int y, int color);
+void		render_map2D(t_minimap *minimap, t_data *data);
+
 // UTILS
 
 //		ft_parse1_utils.c
-int		ft_parse1_util_which_cardinal(char *line);
-int		ft_parse1_util_which_fc(char *line);
-int		ft_parse1_util_find_xpm(char *path);
-int		ft_parse1_util_find_duplicate_xpm(int num, t_data *data);
-int		ft_parse1_util_find_duplicate_rgb(int num, t_data *data);
+int			ft_parse1_util_which_cardinal(char *line);
+int			ft_parse1_util_which_fc(char *line);
+int			ft_parse1_util_find_xpm(char *path);
+int			ft_parse1_util_find_duplicate_xpm(int num, t_data *data);
+int			ft_parse1_util_find_duplicate_rgb(int num, t_data *data);
 
 //		ft_parse1_utils_2.c
-int		ft_parse1_util_check_valid_rgb(char *line, int *rgb_slots);
-int		ft_parse1_util_check_valid_rgb2(char *line, int *rgb_slots);
-bool	ft_parse1_util_rgb_atoi(char *nptr, int *int_addr);
+int			ft_parse1_util_check_valid_rgb(char *line, int *rgb_slots);
+int			ft_parse1_util_check_valid_rgb2(char *line, int *rgb_slots);
+bool		ft_parse1_util_rgb_atoi(char *nptr, int *int_addr);
 
 //		ft_parse3_utils.c
-int		ft_parse3_util_skip_to_map(char **line, int temp_fd);
-int		ft_parse3_util_skip_one(char *line);
-int		ft_parse3_util_alloc_map_memory(char **line, int fd, t_data *data);
-int		ft_parse3_util_skip_whitespaces(char **line, int open_fd);
-int		ft_parse3_util_is_invalid_line(char **line);
+int			ft_parse3_util_skip_whitespaces(char **line, int open_fd);
+int			ft_parse3_util_skip_to_map(char **line, int temp_fd);
+int			ft_parse3_util_skip_one(char *line);
+int			ft_parse3_util_alloc_map_memory(char **line, int fd, t_data *data);
+int			ft_parse3_util_is_invalid_line(char **line);
 
 //		ft_parse3_utils_2.c
-int		ft_parse3_util2_initialize_map(char **line, int open_fd, t_data *data);
-int		ft_parse3_util2_single_player(t_data *data);
-int		ft_p3_isp(char c, t_map *map, int x, int y);
-int		ft_parse3_util2_check_map_closed(t_map *map);
-int		ft_parse3_util2_perform_ff(t_map *map, t_stack *stack);
+int			ft_parse3_util2_initialize_map(char **line, int open_fd,
+				t_data *data);
+int			ft_parse3_util2_single_player(t_data *data);
+int			ft_p3_isp(char c, t_map *map, int x, int y);
+int			ft_parse3_util2_check_map_closed(t_map *map);
 
-//		ft_ff_util.c
-void	ft_ff_util_push(t_stack *stack, int x, int y);
-t_pos	ft_ff_util_pop(t_stack *stack, int *i);
-bool	ft_ff_util_is_empty(t_stack *stack);
-int		ft_flood_fill_one(t_stack *stack, t_map *map, int *dir_x, int *dir_y);
+//		ft_flood_fill_util.c
+bool		ft_ff_util_is_empty(t_stack *stack);
+int			ft_flood_fill_one(t_stack *stack, t_map *map, int *dir_x,
+				int *dir_y);
+t_pos		ft_ff_util_pop(t_stack *stack, int *i);
+int			ft_flood_fill_check_char(int new_y, int new_x, t_map *map);
+void		ft_ff_util_push(t_stack *stack, int x, int y);
 
 //		ft_utils.c
-int		ft_util_malloc_or_eof(int open_fd);
-int		ft_util_is_whitespace_only(char **line);
-int		ft_util_safe_gnl(char **line, int fd, int mode);
-int		*ft_util_get_dir_y(void);
-int		*ft_util_get_dir_x(void);
+int			ft_util_is_whitespace_only(char **line);
+int			ft_util_safe_gnl(char **line, int fd, int mode);
+int			*ft_util_get_dir_y(void);
+int			*ft_util_get_dir_x(void);
 
 //		ft_hooks.c
-int		move_player(t_data *data);
-int		move_player_forward(t_data *data);
-int		move_player_backward(t_data *data);
-int		move_player_left(t_data *data);
-int		move_player_right(t_data *data);
-int		is_move_valid(t_data *data, double new_x, double new_y);
-int		ft_cross(t_data *data);
-int		render(t_data *data);
-int		ft_key_press_handler(int keycode, t_data *data);
-int		ft_key_release_handler(int keycode, t_data *data);
+int			ft_cross(t_data *data);
+int			ft_key_press_handler(int keycode, t_data *data);
+int			ft_key_release_handler(int keycode, t_data *data);
+int			render(t_data *data);
 
+//		ft_moves_utils.c
+int			move_player_forward(t_data *data);
+int			move_player_backward(t_data *data);
+int			move_player_left(t_data *data);
+int			move_player_right(t_data *data);
+
+//		ft_moves.c
+int			move_player(t_data *data);
+int			rotate_player(t_data *data, double rotation);
+int			is_move_valid(t_data *data, double new_x, double new_y);
+int			is_move_in_map(t_map *map, double x, double y);
 
 // FREE
 
 //		ft_free.c
-void	safe_free_texture(t_texture *txt, t_mlx *mlx);
-void	ft_free_tab(char **split);
-void	ft_clean_exit(t_data *data, int errcode);
-void	ft_free_mlx(t_data *data);
-void	ft_free_minimap(t_minimap *mm, t_data *data);
+void		ft_clean_exit(t_data *data, int errcode);
+void		ft_free_textures(t_data *data);
+void		ft_free_maps(t_data *data);
+void		ft_free_mlx(t_data *data);
+
+//		ft_free_utils.c
+void		ft_free_tab(char **split);
+void		safe_free_texture(t_texture *txt, t_mlx *mlx);
 
 // MAIN
+
+void		init_player_direction(t_data *data);
+void		hooks(t_data *data);
+
 #endif
