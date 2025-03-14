@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_moves.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:51:05 by cde-sous          #+#    #+#             */
-/*   Updated: 2025/03/13 17:31:16 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:34:00 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../h_files/cub3d.h"
 
-int	move_player(t_data *data)
+bool	move_player(t_data *data)
 {
 	if (data->player->move_y == 1)
 		data->player->has_moved += move_player_forward(data);
@@ -33,7 +33,7 @@ int	rotate_player(t_data *data, double rotation)
 	double		temp_x;
 	double		rotation_speed;
 
-	rotation_speed = SPEED * rotation;
+	rotation_speed = data->player->mouse_speed * rotation;
 	p = data->player;
 	temp_x = p->dir_x;
 	p->dir_x = p->dir_x * cos(rotation_speed) - p->dir_y * sin(rotation_speed);
@@ -46,19 +46,19 @@ int	rotate_player(t_data *data, double rotation)
 	return (1);
 }
 
-int	is_move_valid(t_data *data, double new_x, double new_y)
+bool	is_move_valid(t_data *data, double new_x, double new_y)
 {
-	int	move;
+	bool	move;
 
-	move = 0;
+	move = false;
 	if (is_move_in_map(data->map, new_x, data->player->pos_y))
 	{
-		move++;
+		move = true;
 		data->player->pos_x = new_x;
 	}
 	if (is_move_in_map(data->map, data->player->pos_x, new_y))
 	{
-		move++;
+		move = true;
 		data->player->pos_y = new_y;
 	}
 	return (move);

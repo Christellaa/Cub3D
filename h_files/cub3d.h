@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/13 18:06:37 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:37:55 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@
 # define FILE_DIR "Error\nCouldn't open file: is a directory\n"
 
 # define PI 3.1415926535
-# define SPEED 0.015
+# define SPEED 0.1
+# define MOUSE_SPEED 0.015
 
 // ------------TYPEDEF--------------
 
@@ -128,8 +129,14 @@ typedef struct s_player
 	int		move_y;
 	int		rotate;
 	int		prev_mouse_x;
-	int		ctrl_pressed;
-	int		has_moved;
+	
+	double	speed;
+	double	mouse_speed;
+	double	key_speed;
+
+	bool	ctrl_pressed;
+	bool	has_moved;
+	bool	shift_pressed;
 
 }	t_player;
 
@@ -318,9 +325,9 @@ int			move_player_left(t_data *data);
 int			move_player_right(t_data *data);
 
 //		ft_moves.c
-int			move_player(t_data *data);
+bool		move_player(t_data *data);
 int			rotate_player(t_data *data, double rotation);
-int			is_move_valid(t_data *data, double new_x, double new_y);
+bool		is_move_valid(t_data *data, double new_x, double new_y);
 int			is_move_in_map(t_map *map, double x, double y);
 
 // FREE
