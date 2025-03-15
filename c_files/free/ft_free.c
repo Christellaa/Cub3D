@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 00:09:00 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/13 12:48:48 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/15 09:33:34 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	ft_free_mlx(t_data *data)
 	if (data->mlx->mlx)
 	{
 		mlx_destroy_display(data->mlx->mlx);
+		mlx_loop_end(data->mlx->mlx);
 		free(data->mlx->mlx);
 	}
 	free(data->mlx);

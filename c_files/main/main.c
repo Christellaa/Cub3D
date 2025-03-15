@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:24:26 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/13 18:29:29 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/15 09:38:26 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,13 @@
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	int		i;
 
-	i = 0;
-	ft_printf(LOGSV, "[VERBOSE][PARSE]: Verify single arg: argc == %d\n", argc);
 	if (argc != 2)
 		return (ft_printf(2, USAGE), ERROR);
 	if (ft_init_data(&data) == ERROR)
 		ft_clean_exit(&data, ERROR);
 	if (ft_parse(argv, &data) == ERROR)
 		ft_clean_exit(&data, ERROR);
-	ft_printf(2, "Map is:\n");
-	while (data.map->map[i])
-	{
-		ft_printf(2, "%s\n", data.map->map[i]);
-		i++;
-	}
 	mlx_mouse_hide(data.mlx->mlx, data.mlx->win);
 	init_player_direction(&data);
 	ft_raycaster(&data);
@@ -72,8 +63,8 @@ void	hooks(t_data *data)
 		data);
 	mlx_hook(data->mlx->win, KeyRelease, KeyReleaseMask, \
 		ft_key_release_handler, data);
-	mlx_hook(data->mlx->win, DestroyNotify, StructureNotifyMask,
-		ft_cross, &data);
+	mlx_hook(data->mlx->win, DestroyNotify, StructureNotifyMask, \
+		ft_cross, data);
 	mlx_hook(data->mlx->win, MotionNotify, PointerMotionMask, mouse_handler, \
 		data);
 	mlx_loop_hook(data->mlx->mlx, render, data);
