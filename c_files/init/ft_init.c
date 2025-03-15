@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:47:28 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/15 09:33:28 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/15 09:46:50 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,15 @@ void	ft_init_player(t_player *player)
 	player->ray_dir_y = 0;
 	player->move_x = 0;
 	player->move_y = 0;
-	player->rotate = 0;
 	player->prev_mouse_x = 0;
-	player->ctrl_pressed = 0;
-	player->has_moved = 0;
+	player->rotate = 0;
+	player->speed = SPEED;
+	ft_printf(2, "SPEEEEEED IS %d\n", player->speed);
+	player->mouse_speed = MOUSE_SPEED;
+	player->key_speed = SPEED;
+	player->ctrl_pressed = false;
+	player->shift_pressed = false;
+	player->has_moved = false;
 }
 
 void	ft_init_rgbs(t_rgb *ceiling, t_rgb *floor)

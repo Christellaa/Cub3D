@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 01:27:14 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/13 18:30:00 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:33:06 by ilevy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	ft_cross(t_data *data)
 // 	int y;
 // 	int i = 0;
 
-// 	center_x = data->player->pos_x * data->minimap->tile_size + 
+// 	center_x = data->player->pos_x * data->minimap->tile_size +
 //data->minimap->tile_size / 2;
-// 	center_y = data->player->pos_y * data->minimap->tile_size + 
+// 	center_y = data->player->pos_y * data->minimap->tile_size +
 //data->minimap->tile_size / 2;
 //     while (i < LINE_LEN)
 //     {
@@ -68,7 +68,7 @@ int	ft_cross(t_data *data)
 //         y = center_y + data->player->dir_y * i;
 // 		if (x >= 0 && x < data->minimap->map->columns *
 //data->minimap->tile_size
-// 			&& y >= 0 && y < data->minimap->map->rows * 
+// 			&& y >= 0 && y < data->minimap->map->rows *
 //data->minimap->tile_size)
 // 		{
 // 			if (ray_hits_wall(data->minimap, y/data->minimap->tile_size,
@@ -92,7 +92,7 @@ int	ft_cross(t_data *data)
 // 	data->player->dir_x = cos(data->player->camera_x);
 // 	data->player->dir_y = sin(data->player->camera_x);
 // 	draw_line(data);
-// 	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, 
+// 	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win,
 //data->minimap->img_ptr, 0, 0);
 // }
 
@@ -114,8 +114,13 @@ int	ft_key_press_handler(int keycode, t_data *data)
 		data->player->rotate += 1;
 	if (keycode == XK_Control_L)
 	{
-		data->player->ctrl_pressed = 1;
+		data->player->ctrl_pressed = true;
 		mlx_mouse_show(data->mlx->mlx, data->mlx->win);
+	}
+	if (keycode == XK_Shift_L)
+	{
+		data->player->shift_pressed = true;
+		data->player->speed *= 1.5;
 	}
 	return (0);
 }
@@ -136,10 +141,15 @@ int	ft_key_release_handler(int keycode, t_data *data)
 		data->player->rotate = 0;
 	if (keycode == XK_Right && data->player->rotate >= -1)
 		data->player->rotate = 0;
-	if (keycode == XK_Control_L && data->player->ctrl_pressed == 1)
+	if (keycode == XK_Control_L && data->player->ctrl_pressed == true)
 	{
-		data->player->ctrl_pressed = 0;
+		data->player->ctrl_pressed = false;
 		mlx_mouse_hide(data->mlx->mlx, data->mlx->win);
+	}
+	if (keycode == XK_Shift_L && data->player->shift_pressed == true)
+	{
+		data->player->shift_pressed = false;
+		data->player->speed /= 1.5;
 	}
 	return (0);
 }
@@ -149,14 +159,14 @@ int	mouse_handler(int x, int y, t_data *data)
 	(void)y;
 	if (x == data->player->prev_mouse_x)
 		return (0);
-	if (data->player->ctrl_pressed == 0)
+	if (data->player->ctrl_pressed == false)
 	{
 		mlx_mouse_move(data->mlx->mlx, data->mlx->win, WIDTH / 2, HEIGHT / 2);
 		if (x < data->player->prev_mouse_x)
 			rotate_player(data, -1);
 		else if (x > data->player->prev_mouse_x)
 			rotate_player(data, 1);
-		data->player->has_moved = 1;
+		data->player->has_moved = true;
 		data->player->prev_mouse_x = x;
 	}
 	return (0);
@@ -166,7 +176,7 @@ int	render(t_data *data)
 {
 	if (!move_player(data))
 		return (0);
-	data->player->has_moved = 0;
+	data->player->has_moved = false;
 	ft_raycaster(data);
 	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, \
 		data->mlx->img_ptr, 0, 0);
