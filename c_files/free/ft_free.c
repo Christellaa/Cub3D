@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 00:09:00 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/15 09:43:42 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:50:27 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ void	ft_free_maps(t_data *data)
 {
 	if (data->minimap)
 	{
-		if (data->minimap->img_ptr && data->mlx->mlx)
-			mlx_destroy_image(data->mlx->mlx, data->minimap->img_ptr);
 		free(data->minimap);
 		data->minimap = NULL;
 	}

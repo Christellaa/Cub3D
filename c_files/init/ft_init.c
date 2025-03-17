@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:47:28 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/15 09:46:50 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:54:32 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ int	ft_init_data(t_data *data)
 	}
 	if (ft_init_mlx(data->mlx) == ERROR)
 		return (ft_printf(2, "Error\nMalloc error during mlx init\n"), ERROR);
-	if (ft_init_minimap(data) == ERROR)
-		return (ft_printf(2, "Error\nMalloc error during minimap init\n"),
-			ERROR);
 	ft_init_map(data->map);
 	ft_init_player(data->player);
 	ft_init_rgbs(data->ceiling_rgb, data->floor_rgb);
@@ -76,7 +73,6 @@ void	ft_init_player(t_player *player)
 	player->prev_mouse_x = 0;
 	player->rotate = 0;
 	player->speed = SPEED;
-	ft_printf(2, "SPEEEEEED IS %d\n", player->speed);
 	player->mouse_speed = MOUSE_SPEED;
 	player->key_speed = SPEED;
 	player->ctrl_pressed = false;

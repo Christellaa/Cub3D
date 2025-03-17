@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 00:34:12 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/13 11:34:05 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:48:39 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,10 @@ int	ft_init_mlx(t_mlx *mlx)
 int	ft_init_minimap(t_data *data)
 {
 	data->minimap->map = data->map;
-	data->minimap->img_ptr = mlx_new_image(data->mlx->mlx, data->mlx->width, \
-		data->mlx->height);
-	if (!data->minimap->img_ptr)
-		return (ERROR);
-	data->minimap->buf = (int *)mlx_get_data_addr(data->minimap->img_ptr, \
-		&data->minimap->bpp, &data->minimap->s_l, &data->minimap->e);
-	data->minimap->tile_size = 32;
-	data->minimap->margin = 1;
+	data->minimap->radius = 150;
+	data->minimap->tile_size = 10;
+	data->minimap->buf = (int *)mlx_get_data_addr(data->mlx->img_ptr, \
+	&data->minimap->bpp, &data->minimap->s_l, &data->minimap->e);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 #    By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/20 23:13:34 by ilevy             #+#    #+#              #
-#    Updated: 2025/03/13 11:59:24 by cde-sous         ###   ########.fr        #
+#    Updated: 2025/03/17 18:22:27 by cde-sous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ FREE_DIR:= free/
 FREE:= ft_free.c ft_free_utils.c
 
 EXEC_DIR:= exec/
-EXEC:= ft_window.c ft_raycaster.c draw_ceiling_floor.c draw_wall.c
+EXEC:= draw_minimap.c draw_minimap_utils.c ft_raycaster.c draw_ceiling_floor.c draw_wall.c
 
 MAIN_DIR:= main/
 MAIN:= main.c

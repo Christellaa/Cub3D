@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/14 12:37:55 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/17 18:18:50 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 # define FILE_DIR "Error\nCouldn't open file: is a directory\n"
 
 # define PI 3.1415926535
-# define SPEED 0.1
+# define SPEED 0.15
 # define MOUSE_SPEED 0.015
 
 // ------------TYPEDEF--------------
@@ -170,13 +170,12 @@ typedef struct s_texture
 typedef struct s_minimap
 {
 	t_map	*map;
-	void	*img_ptr;
 	int		bpp;
 	int		s_l;
 	int		e;
-	int		*buf;
+	void	*buf;
+	int		radius;
 	int		tile_size;
-	int		margin;
 }	t_minimap;
 
 typedef struct s_data
@@ -245,7 +244,7 @@ int			ft_parse3_flood_fill(t_data *data);
 
 // EXEC
 
-//		ft_try_raycaster.c
+//		ft_raycaster.c
 void		ft_raycaster(t_data *data);
 void		ft_digital_differential_analyzer(t_player *p, t_map *m, int *hit,
 				int *side);
@@ -265,9 +264,14 @@ void		ft_draw_vertical2(t_player *p, double txt_pos, t_texture *texture,
 int			ft_get_txt_pixel(t_texture *txt, int x, int y);
 void		ft_put_pixel(t_data *data, int x, int y, int color);
 
-//		minimap? // ft_window.c
-void		put_pixel(t_data *data, int x, int y, int color);
-void		render_map2D(t_minimap *minimap, t_data *data);
+//		draw_minimap.c
+void		draw_minimap(t_minimap *mmap, t_player *p);
+t_pos		get_tile_pos(t_minimap *mmap, double ox, double oy);
+void		ft_put_pixel_mmap(t_minimap *mmap, int x, int y, int color);
+void		draw_tile(t_minimap *mmap, t_pos tile, int color);
+void		draw_minimap_tile(t_minimap *mmap, t_player *p, double ox, double oy);
+void		draw_player(t_minimap *mmap, int color);
+void		draw_circle_outline(t_minimap *mmap, int color);
 
 // UTILS
 
