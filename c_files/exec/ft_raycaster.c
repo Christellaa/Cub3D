@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 07:09:29 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/13 12:47:01 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:03:33 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ void	ft_digital_differential_analyzer(t_player *p, t_map *m, int *hit,
 			m->map_y += p->step_y;
 			*side = 1;
 		}
-		if (m->map_y < 0.25 || m->map_y >= HEIGHT - 0.25 || m->map_x < 0.25 || \
-			m->map_x >= WIDTH - 1.25)
-			break ;
-		else if (m->map[m->map_y][m->map_x] == '1')
+		if (m->map[m->map_y][m->map_x] == '1')
 			*hit = 1;
 	}
 }
