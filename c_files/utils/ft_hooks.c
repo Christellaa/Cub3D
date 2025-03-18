@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 01:27:14 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/17 18:22:54 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:15:10 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_key_press_handler(int keycode, t_data *data)
 		data->player->rotate -= 1;
 	if (keycode == XK_Right)
 		data->player->rotate += 1;
-	if (keycode == XK_Control_L)
+	if (BONUS && keycode == XK_Control_L)
 	{
 		data->player->ctrl_pressed = true;
 		mlx_mouse_show(data->mlx->mlx, data->mlx->win);
@@ -63,7 +63,7 @@ int	ft_key_release_handler(int keycode, t_data *data)
 		data->player->rotate = 0;
 	if (keycode == XK_Right && data->player->rotate >= -1)
 		data->player->rotate = 0;
-	if (keycode == XK_Control_L && data->player->ctrl_pressed == true)
+	if (BONUS && keycode == XK_Control_L && data->player->ctrl_pressed == true)
 	{
 		data->player->ctrl_pressed = false;
 		mlx_mouse_hide(data->mlx->mlx, data->mlx->win);
@@ -100,7 +100,8 @@ int	render(t_data *data)
 		return (0);
 	data->player->has_moved = false;
 	ft_raycaster(data);
-	draw_minimap(data->minimap, data->player);
+	if (BONUS)
+		draw_minimap(data->minimap, data->player);
 	mlx_put_image_to_window(data->mlx->mlx, data->mlx->win, \
 		data->mlx->img_ptr, 0, 0);
 	return (1);

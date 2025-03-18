@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:24:26 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/17 18:22:48 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/18 13:05:53 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,15 @@ int	main(int argc, char **argv)
 		ft_clean_exit(&data, ERROR);
 	if (ft_parse(argv, &data) == ERROR)
 		ft_clean_exit(&data, ERROR);
-	mlx_mouse_hide(data.mlx->mlx, data.mlx->win);
 	init_player_direction(&data);
 	ft_raycaster(&data);
 	if (ft_init_minimap(&data) == ERROR)
 		ft_clean_exit(&data, ERROR);
-	draw_minimap(data.minimap, data.player);
+	if (BONUS)
+	{
+		draw_minimap(data.minimap, data.player);
+		mlx_mouse_hide(data.mlx->mlx, data.mlx->win);
+	}
 	mlx_put_image_to_window(data.mlx->mlx, data.mlx->win, data.mlx->img_ptr, \
 		0, 0);
 	hooks(&data);
@@ -68,7 +71,8 @@ void	hooks(t_data *data)
 		ft_key_release_handler, data);
 	mlx_hook(data->mlx->win, DestroyNotify, StructureNotifyMask, \
 		ft_cross, data);
-	mlx_hook(data->mlx->win, MotionNotify, PointerMotionMask, mouse_handler, \
-		data);
+	if (BONUS)
+		mlx_hook(data->mlx->win, MotionNotify, PointerMotionMask, mouse_handler, \
+			data);
 	mlx_loop_hook(data->mlx->mlx, render, data);
 }

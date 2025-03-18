@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/17 18:18:50 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:25:48 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@
 // Set LOGS and LOGSV to -1 to hide logs
 # define LOGS -1
 # define LOGSV -1
-# define BONUS 0
+
+#ifndef BONUS
+# define BONUS 1
+#endif
 
 # define ERROR -1
 

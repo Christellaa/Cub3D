@@ -6,18 +6,18 @@
 #    By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/20 23:13:34 by ilevy             #+#    #+#              #
-#    Updated: 2025/03/17 18:22:27 by cde-sous         ###   ########.fr        #
+#    Updated: 2025/03/18 14:51:37 by cde-sous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program name:
 
 NAME:= cub3D
-NAME_BONUS:= cub4D
 
 # CC and CFLAGS:
 CC:= cc
 CFLAGS:= -Wall -Werror -Wextra -g3
+BONUS:= 0
 
 # Directories:
 C_DIR:= c_files/
@@ -75,7 +75,7 @@ $(NAME): $(O_DIR_SUBS) $(OBJ)
 	@echo "Compiled $(NAME)"
 
 $(O_DIR)%.o: $(C_DIR)%.c | $(O_DIR_SUBS)
-	$(CC) $(CFLAGS) -I $(H_DIR) -I $(MLX) -c $< -o $@
+	$(CC) $(CFLAGS) -DBONUS=$(BONUS) -I $(H_DIR) -I $(MLX) -c $< -o $@
 
 $(O_DIR_SUBS): $(O_DIR)
 	mkdir -p $(O_DIR_SUBS)
@@ -99,10 +99,8 @@ fclean: clean
 
 re: fclean all
 
-bonus: $(NAME_BONUS)
-	make -C $(LIBFT)
-	$(CC) $(CFLAGS) -I $(H_DIR) -o $(NAME_BONUS) $(OBJ_BONUS) $(LIBFT_FLAG)
-	@echo "Compiled $(NAME_BONUS)"
+bonus:
+	make re BONUS=1
 
 .PHONY: re all fclean clean bonus
 
