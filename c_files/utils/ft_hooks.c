@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 01:27:14 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/18 12:15:10 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/18 15:42:05 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,24 @@ int	ft_key_release_handler(int keycode, t_data *data)
 
 int	mouse_handler(int x, int y, t_data *data)
 {
-	(void)y;
+	if (data->player->ctrl_pressed == true)
+		return (0);
+	if (x <= 350)
+		mlx_mouse_move(data->mlx->mlx, data->mlx->win, WIDTH - 351, y);
+	if (x >= WIDTH - 350)
+		mlx_mouse_move(data->mlx->mlx, data->mlx->win, 351, y);
+	if (y <= 350)
+		mlx_mouse_move(data->mlx->mlx, data->mlx->win, x, HEIGHT - 351);
+	if (y >= HEIGHT - 350)
+		mlx_mouse_move(data->mlx->mlx, data->mlx->win, x, 351);
 	if (x == data->player->prev_mouse_x)
 		return (0);
-	if (data->player->ctrl_pressed == false)
-	{
-		mlx_mouse_move(data->mlx->mlx, data->mlx->win, WIDTH / 2, HEIGHT / 2);
-		if (x < data->player->prev_mouse_x)
-			rotate_player(data, -1);
-		else if (x > data->player->prev_mouse_x)
-			rotate_player(data, 1);
-		data->player->has_moved = true;
-		data->player->prev_mouse_x = x;
-	}
+	if (x < data->player->prev_mouse_x)
+		rotate_player(data, -1);
+	else if (x > data->player->prev_mouse_x)
+		rotate_player(data, 1);
+	data->player->has_moved = true;
+	data->player->prev_mouse_x = x;
 	return (0);
 }
 
