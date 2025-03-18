@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:06:50 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/18 14:25:48 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/18 15:45:09 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 # define LOGS -1
 # define LOGSV -1
 
-#ifndef BONUS
-# define BONUS 1
-#endif
+# ifndef BONUS
+#  define BONUS 1
+# endif
 
 # define ERROR -1
 
@@ -132,7 +132,7 @@ typedef struct s_player
 	int		move_y;
 	int		rotate;
 	int		prev_mouse_x;
-	
+
 	double	speed;
 	double	mouse_speed;
 	double	key_speed;
@@ -272,7 +272,8 @@ void		draw_minimap(t_minimap *mmap, t_player *p);
 t_pos		get_tile_pos(t_minimap *mmap, double ox, double oy);
 void		ft_put_pixel_mmap(t_minimap *mmap, int x, int y, int color);
 void		draw_tile(t_minimap *mmap, t_pos tile, int color);
-void		draw_minimap_tile(t_minimap *mmap, t_player *p, double ox, double oy);
+void		draw_minimap_tile(t_minimap *mmap, t_player *p, double ox, \
+				double oy);
 void		draw_player(t_minimap *mmap, int color);
 void		draw_circle_outline(t_minimap *mmap, int color);
 

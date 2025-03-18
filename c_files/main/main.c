@@ -6,7 +6,7 @@
 /*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 07:24:26 by ilevy             #+#    #+#             */
-/*   Updated: 2025/03/18 13:05:53 by cde-sous         ###   ########.fr       */
+/*   Updated: 2025/03/18 15:44:22 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	hooks(t_data *data)
 	mlx_hook(data->mlx->win, DestroyNotify, StructureNotifyMask, \
 		ft_cross, data);
 	if (BONUS)
-		mlx_hook(data->mlx->win, MotionNotify, PointerMotionMask, mouse_handler, \
-			data);
+		mlx_hook(data->mlx->win, MotionNotify, PointerMotionMask, \
+			mouse_handler, data);
 	mlx_loop_hook(data->mlx->mlx, render, data);
 }
