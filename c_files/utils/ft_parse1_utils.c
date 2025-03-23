@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse1_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 01:15:57 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/27 23:22:26 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/23 20:28:03 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	ft_parse1_util_find_duplicate_rgb(int num, t_data *data)
 	{
 		if (data->ceiling_rgb->assigned == true)
 			return (ERROR);
-		ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]: No duplicate ceiling found\n");
+		ft_printf(LOGSV, "[VERBOSE][PARSE1_UTIL]:No duplicate ceiling found\n");
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse1_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilevy <ilevy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cde-sous <cde-sous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 02:59:28 by ilevy             #+#    #+#             */
-/*   Updated: 2025/02/27 23:15:29 by ilevy            ###   ########.fr       */
+/*   Updated: 2025/03/23 20:27:44 by cde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_parse1_util_check_valid_rgb2(char *line, int *rgb_slots)
 	split = ft_split(line, ',');
 	if (!split)
 	{
-		ft_printf(2, "Error\n Alloc error within split process in RGB check.\n");
+		ft_printf(2, "Error\nAlloc error within split process in RGB check.\n");
 		return (ERROR);
 	}
 	while (split[index])
